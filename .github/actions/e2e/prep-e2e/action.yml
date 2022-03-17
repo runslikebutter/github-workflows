@@ -1,0 +1,15 @@
+inputs:
+  DOTENV:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: ./.github/actions/setup-node
+
+    - uses: ./.github/actions/cache
+
+    - name: Add credentials
+      run: echo "${{ inputs.DOTENV }}" >> panel-app/.env.test
+      shell: bash
+

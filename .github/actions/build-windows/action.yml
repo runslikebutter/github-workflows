@@ -1,0 +1,37 @@
+inputs:
+  artifact_name:
+    description: "what to name the uploaded build artifact"
+    default: "dist-win"
+    required: true
+  ssh_key:
+    description: "ssh key for bmx-access-toolkit repo"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Prep and install dependencies
+      uses: ./.github/actions/install-dependencies
+      with:
+        ssh_key: ${{ inputs.ssh_key }}
+
+    - name: Build
+      shell: powershell
+      working-directory: panel-app
+      run: yarn run build-dist-win
+
+    - name: See dist directory
+      shell: powershell
+      working-directory: panel-app/dist_electron
+      run: ls
+
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ inputs.artifact_name }}
+        path: |
+          panel-app/dist_electron/*.exe
+          panel-app/dist_electron/*.blockmap
+          panel-app/dist_electron/latest*.yml
+        if-no-files-found: error
+        retention-days: 1

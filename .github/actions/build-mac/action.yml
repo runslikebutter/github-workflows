@@ -1,0 +1,52 @@
+inputs:
+  artifact_name:
+    description: "what to name the uploaded build artifact"
+    default: "dist-mac"
+    required: true
+  ssh_key:
+    description: "ssh key for bmx-access-toolkit repo"
+    required: true
+  apple_app_password:
+    required: true
+  apple_id:
+    required: true
+  csc_key_password:
+    required: true
+  csc_link:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Prep and install dependencies
+      uses: ./.github/actions/install-dependencies
+      with:
+        ssh_key: ${{ inputs.ssh_key }}
+
+    - name: Build
+      shell: bash
+      working-directory: panel-app
+      run: yarn run build-dist-mac
+      env:
+        CSC_LINK: ${{ inputs.csc_link }}
+        CSC_KEY_PASSWORD: ${{ inputs.csc_key_password }}
+        CSC_IDENTITY_AUTO_DISCOVERY: "true"
+        APPLEID: ${{ inputs.apple_id }}
+        APPLEIDPASS: ${{ inputs.apple_app_password }}
+
+    - name: See dist directory
+      shell: bash
+      working-directory: panel-app/dist_electron
+      run: ls
+
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ inputs.artifact_name }}
+        path: |
+          panel-app/dist_electron/*.dmg
+          panel-app/dist_electron/*.zip
+          panel-app/dist_electron/*.blockmap
+          panel-app/dist_electron/latest*.yml
+        if-no-files-found: error
+        retention-days: 1

@@ -1,0 +1,21 @@
+inputs:
+  package_directory:
+    description: "path to the directory where package.json file lives"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get release version
+      id: get_release_version
+      shell: bash
+      working-directory: ${{ inputs.package_directory }}
+      run: |
+        # get version from package.json
+        echo ::set-output name=release_version::$( jq -r '.version' ./package.json )
+
+    - name: Create Github release
+      uses: softprops/action-gh-release@v1
+      with:
+        name: v${{ steps.get_release_version.outputs.release_version }}
+        tag_name: v${{ steps.get_release_version.outputs.release_version }}

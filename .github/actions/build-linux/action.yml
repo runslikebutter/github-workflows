@@ -1,0 +1,61 @@
+inputs:
+  artifact_name:
+    description: "what to name the uploaded build artifact"
+    default: "dist-linux"
+    required: true
+  create_sentry_artifact:
+    description: "whether to upload an artifact for sentry release"
+    default: "false"
+    required: false
+  sentry_artifact_name:
+    description: "what to name the uploaded build artifact for Sentry"
+    default: "dist-sentry"
+    required: false
+  ssh_key:
+    description: "ssh key for bmx-access-toolkit repo"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install necessary Linux packages
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libudev-dev
+
+    - name: Prep and install dependencies
+      uses: ./.github/actions/install-dependencies
+      with:
+        ssh_key: ${{ inputs.ssh_key }}
+
+    - name: Build
+      shell: bash
+      working-directory: panel-app
+      run: yarn run build-dist-linux
+
+    - name: See dist directory
+      shell: bash
+      working-directory: panel-app/dist_electron
+      run: ls
+
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ inputs.artifact_name }}
+        path: |
+          panel-app/dist_electron/*.blockmap
+          panel-app/dist_electron/*.AppImage
+          panel-app/dist_electron/latest*.yml
+        if-no-files-found: error
+        retention-days: 1
+
+    - name: Archive artifacts for Sentry
+      if: inputs.create_sentry_artifact == 'true'
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ inputs.sentry_artifact_name }}
+        path: |
+          panel-app/dist_electron/
+        if-no-files-found: error
+        retention-days: 1

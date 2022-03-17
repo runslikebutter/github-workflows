@@ -1,0 +1,25 @@
+inputs:
+  ssh_key:
+    required: true
+    type: string
+
+runs:
+  using: "composite"
+  steps:
+    - name: Add SSH key
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ inputs.ssh_key }}
+
+    - name: Set up node
+      uses: ./.github/actions/setup-node
+
+    - name: Cache dependencies
+      id: cache
+      uses: ./.github/actions/cache
+
+    - name: Install dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      working-directory: panel-app
+      run: yarn install --prefer-offline --network-concurrency 1

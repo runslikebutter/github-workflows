@@ -1,0 +1,7 @@
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up node
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14.17.0
