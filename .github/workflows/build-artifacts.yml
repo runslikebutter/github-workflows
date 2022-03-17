@@ -27,7 +27,7 @@ on:
         required: false
         default: dist-sentry
         type: string
-      windows_artifact_name: 
+      windows_artifact_name:
         description: "what to name the uploaded windows build artifact"
         required: false
         default: dist-win
@@ -58,7 +58,7 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: ./.github/actions/build-windows
+        uses: runslikebutter/github-workflows/actions/build-windows@main
         with:
           artifact_name: ${{ inputs.windows_artifact_name }}
           ssh_key: ${{ secrets.BMX_ACCESS_TOOLKIT_SSH_KEY }}
@@ -72,7 +72,7 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: ./.github/actions/build-linux
+        uses: runslikebutter/github-workflows/actions/build-linux@main
         with:
           artifact_name: ${{ inputs.linux_artifact_name }}
           create_sentry_artifact: ${{ inputs.create_sentry_artifact }}
@@ -88,7 +88,7 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: ./.github/actions/build-mac
+        uses: runslikebutter/github-workflows/actions/build-mac@main
         with:
           artifact_name: ${{ inputs.mac_artifact_name }}
           ssh_key: ${{ secrets.BMX_ACCESS_TOOLKIT_SSH_KEY }}

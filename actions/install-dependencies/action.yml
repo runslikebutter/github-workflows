@@ -12,11 +12,11 @@ runs:
         ssh-private-key: ${{ inputs.ssh_key }}
 
     - name: Set up node
-      uses: ./.github/actions/setup-node
+      uses: runslikebutter/github-workflows/actions/setup-node@main
 
     - name: Cache dependencies
       id: cache
-      uses: ./.github/actions/cache
+      uses: runslikebutter/github-workflows/actions/cache@main
 
     - name: Install dependencies
       if: steps.cache.outputs.cache-hit != 'true'

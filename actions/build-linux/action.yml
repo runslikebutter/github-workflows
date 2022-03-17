@@ -25,7 +25,7 @@ runs:
         sudo apt-get install -y libudev-dev
 
     - name: Prep and install dependencies
-      uses: ./.github/actions/install-dependencies
+      uses: runslikebutter/github-workflows/actions/install-dependencies@main
       with:
         ssh_key: ${{ inputs.ssh_key }}
 

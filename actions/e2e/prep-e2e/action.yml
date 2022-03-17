@@ -5,11 +5,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: ./.github/actions/setup-node
+    - uses: runslikebutter/github-workflows/actions/setup-node@main
 
-    - uses: ./.github/actions/cache
+    - uses: runslikebutter/github-workflows/actions/cache@main
 
     - name: Add credentials
       run: echo "${{ inputs.DOTENV }}" >> panel-app/.env.test
       shell: bash
-

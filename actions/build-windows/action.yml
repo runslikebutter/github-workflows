@@ -11,7 +11,7 @@ runs:
   using: "composite"
   steps:
     - name: Prep and install dependencies
-      uses: ./.github/actions/install-dependencies
+      uses: runslikebutter/github-workflows/actions/install-dependencies
       with:
         ssh_key: ${{ inputs.ssh_key }}
 
