@@ -1,1 +1,2 @@
-# Github workflows and actions used for Monarch and Front Desk Station
+# github-workflows
+Workflow and actions used for Monarch and Front Desk Station

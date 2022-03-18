@@ -1,0 +1,24 @@
+name: post_to_slack
+on:
+  workflow_call:
+    inputs:
+      message:
+        required: true
+        type: string
+    secrets:
+      SLACK_WEBHOOK_URL:
+        required: true
+
+env:
+  WORKFLOW_URL: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Echo message
+        run: |
+          TEXT="${{ inputs.message }} (<${{ env.WORKFLOW_URL }}|link>)."
+          JSON="{\"text\":\"$TEXT\"}"
+          curl -X POST -H 'Content-type: application/json' --data "$JSON" ${{ secrets.SLACK_WEBHOOK_URL }}

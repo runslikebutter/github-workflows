@@ -1,4 +1,4 @@
-name: _build_artifacts
+name: build_artifacts
 
 on:
   workflow_call:
@@ -58,7 +58,7 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: runslikebutter/github-workflows/actions/build-windows@main
+        uses: runslikebutter/github-workflows/actions/build-windows@v1
         with:
           artifact_name: ${{ inputs.windows_artifact_name }}
           ssh_key: ${{ secrets.BMX_ACCESS_TOOLKIT_SSH_KEY }}
@@ -72,7 +72,7 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: runslikebutter/github-workflows/actions/build-linux@main
+        uses: runslikebutter/github-workflows/actions/build-linux@v1
         with:
           artifact_name: ${{ inputs.linux_artifact_name }}
           create_sentry_artifact: ${{ inputs.create_sentry_artifact }}
@@ -88,7 +88,7 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: runslikebutter/github-workflows/actions/build-mac@main
+        uses: runslikebutter/github-workflows/actions/build-mac@v1
         with:
           artifact_name: ${{ inputs.mac_artifact_name }}
           ssh_key: ${{ secrets.BMX_ACCESS_TOOLKIT_SSH_KEY }}
