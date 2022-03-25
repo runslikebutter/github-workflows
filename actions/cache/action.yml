@@ -10,4 +10,4 @@ runs:
       uses: actions/cache@v2
       with:
         path: ./panel-app/node_modules
-        key: yarn-${{ runner.os }}-${{ hashFiles('./panel-app/yarn.lock') }}
+        key: yarn-v2-${{ runner.os }}-${{ hashFiles('./panel-app/yarn.lock') }}
