@@ -1,9 +1,0 @@
-runs:
-  using: "composite"
-  steps:
-    - name: Extract and archive artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: e2e-artifacts
-        path: /home/runner/work/monarch-app/monarch-app/panel-app/artifact-*
-        retention-days: 2
