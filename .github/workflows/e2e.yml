@@ -1,7 +1,7 @@
 on:
   workflow_call:
     secrets:
-      E2E_REPO_TOKEN: { required: true }
+      E2E_REPO_TOKEN: { required: false }
       DOTENV: { required: true }
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
   #     - uses: actions/checkout@v3
   #       with:
   #         repository: runslikebutter/e2e
-  #         token: ${{ secrets.E2E_REPO_TOKEN }}
+  #         token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
   #     - uses: ./.github/utils/prep
   #       with:
   #         DOTENV: ${{ secrets.DOTENV }}
@@ -44,7 +44,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: runslikebutter/e2e
-          token: ${{ secrets.E2E_REPO_TOKEN }}
+          token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
       - uses: ./.github/utils/prep
         with:
           DOTENV: ${{ secrets.DOTENV }}
@@ -67,7 +67,7 @@ jobs:
 #       - uses: actions/checkout@v3
 #         with:
 #           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN }}
+#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
 #       - uses: ./.github/utils/prep
 #         with:
 #           DOTENV: ${{ secrets.DOTENV }}
@@ -90,7 +90,7 @@ jobs:
 #       - uses: actions/checkout@v3
 #         with:
 #           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN }}
+#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
 #       - uses: ./.github/utils/prep
 #         with:
 #           DOTENV: ${{ secrets.DOTENV }}
@@ -113,7 +113,7 @@ jobs:
 #       - uses: actions/checkout@v3
 #         with:
 #           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN }}
+#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
 #       - uses: ./.github/utils/prep
 #         with:
 #           DOTENV: ${{ secrets.DOTENV }}
@@ -136,7 +136,7 @@ jobs:
 #       - uses: actions/checkout@v3
 #         with:
 #           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN }}
+#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
 #       - uses: ./.github/utils/prep
 #         with:
 #           DOTENV: ${{ secrets.DOTENV }}
@@ -159,7 +159,7 @@ jobs:
 #       - uses: actions/checkout@v3
 #         with:
 #           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN }}
+#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
 #       - uses: ./.github/utils/prep
 #         with:
 #           DOTENV: ${{ secrets.DOTENV }}
@@ -186,7 +186,7 @@ jobs:
 #       - uses: actions/checkout@v3
 #         with:
 #           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN }}
+#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
 #       - uses: ./.github/utils/prep
 #         with:
 #           DOTENV: ${{ secrets.DOTENV }}
@@ -209,7 +209,7 @@ jobs:
 #       - uses: actions/checkout@v3
 #         with:
 #           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN }}
+#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
 #       - uses: ./.github/utils/prep
 #         with:
 #           DOTENV: ${{ secrets.DOTENV }}
@@ -232,7 +232,7 @@ jobs:
 #       - uses: actions/checkout@v3
 #         with:
 #           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN }}
+#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
 #       - uses: ./.github/utils/prep
 #         with:
 #           DOTENV: ${{ secrets.DOTENV }}
@@ -259,7 +259,7 @@ jobs:
 #       - uses: actions/checkout@v3
 #         with:
 #           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN }}
+#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
 #       - uses: ./.github/utils/prep
 #         with:
 #           DOTENV: ${{ secrets.DOTENV }}
@@ -282,7 +282,7 @@ jobs:
 #       - uses: actions/checkout@v3
 #         with:
 #           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN }}
+#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
 #       - uses: ./.github/utils/prep
 #         with:
 #           DOTENV: ${{ secrets.DOTENV }}
@@ -305,7 +305,7 @@ jobs:
 #       - uses: actions/checkout@v3
 #         with:
 #           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN }}
+#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
 #       - uses: ./.github/utils/prep
 #         with:
 #           DOTENV: ${{ secrets.DOTENV }}
