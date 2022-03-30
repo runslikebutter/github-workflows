@@ -1,8 +1,10 @@
 on:
   workflow_call:
     secrets:
-      E2E_REPO_TOKEN: { required: false }
-      DOTENV: { required: true }
+      E2E_REPO_TOKEN:
+        required: false
+      DOTENV:
+        required: true
 
 jobs:
 
@@ -37,7 +39,7 @@ jobs:
         if: failure()
 
   basic-ui:
-    # needs: [access-group]  # TODO re-enable
+    needs: [access-group]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

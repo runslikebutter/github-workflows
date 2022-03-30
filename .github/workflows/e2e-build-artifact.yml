@@ -1,7 +1,8 @@
 on:
   workflow_call:
     secrets:
-      ssh_key: { required: true }
+      ssh_key:
+        required: true
 
 jobs:
   build:

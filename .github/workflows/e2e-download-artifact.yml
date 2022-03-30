@@ -1,8 +1,10 @@
 on:
   workflow_call:
     secrets:
-      AWS_ACCESS_KEY_ID: { required: true }
-      AWS_SECRET_ACCESS_KEY: { required: true }
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
 
 jobs:
   prep:
@@ -22,7 +24,6 @@ jobs:
       
       - name: Download Monarch executable file
         run: aws s3 cp s3://monarch-np-util/artifacts/monarch-app/develop/latest/ ~/Desktop/BMX/app --recursive --exclude "*" --include "*[!arm64].AppImage"
-
 
       - name: Upload Monarch executable as an artifact
         uses: actions/upload-artifact@v2

@@ -1,8 +1,10 @@
 on:
   workflow_call:
     secrets:
-      E2E_REPO_TOKEN: { required: false }
-      DOTENV: { required: true }
+      E2E_REPO_TOKEN:
+        required: false
+      DOTENV:
+        required: true
 
 jobs:
   basic-ui:

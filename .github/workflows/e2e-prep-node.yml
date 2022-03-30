@@ -1,7 +1,8 @@
 on:
   workflow_call:
     secrets:
-      E2E_REPO_TOKEN: { required: false }
+      E2E_REPO_TOKEN:
+        required: false
 
 jobs:
   prep:
