@@ -10,32 +10,31 @@ jobs:
 # Track 1
 ##############################
 
-# TODO re-enable
-  # access-group:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #       with:
-  #         repository: runslikebutter/e2e
-  #         token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
-  #     - uses: ./.github/utils/prep
-  #       with:
-  #         DOTENV: ${{ secrets.DOTENV }}
+  access-group:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: runslikebutter/e2e
+          token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
+      - uses: ./.github/utils/prep
+        with:
+          DOTENV: ${{ secrets.DOTENV }}
       
-  #     # Specific to QR tests
-  #     - name: Install ffmpeg .deb package for QR video stream generation
-  #       run: sudo apt update -y && sudo apt install ffmpeg -y
+      # Specific to QR tests
+      - name: Install ffmpeg .deb package for QR video stream generation
+        run: sudo apt update -y && sudo apt install ffmpeg -y
 
-  #     - name: ">>> Run tests ${{ github.job }}"
-  #       id: first-attempt
-  #       run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
+      - name: ">>> Run tests ${{ github.job }}"
+        id: first-attempt
+        run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
 
-  #     - name: ">>> Retry"
-  #       if: steps.first-attempt.outputs.res == 'fail'
-  #       run: npm run test:monarch:headless ${{ github.job }}
+      - name: ">>> Retry"
+        if: steps.first-attempt.outputs.res == 'fail'
+        run: npm run test:monarch:headless ${{ github.job }}
 
-  #     - uses: ./.github/utils/extract-logs
-  #       if: failure()
+      - uses: ./.github/utils/extract-logs
+        if: failure()
 
   basic-ui:
     # needs: [access-group]  # TODO re-enable
@@ -60,263 +59,263 @@ jobs:
       - uses: ./.github/utils/extract-logs
         if: failure()
 
-#   commercial:
-#     needs: [basic-ui]
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#         with:
-#           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
-#       - uses: ./.github/utils/prep
-#         with:
-#           DOTENV: ${{ secrets.DOTENV }}
+  commercial:
+    needs: [basic-ui]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: runslikebutter/e2e
+          token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
+      - uses: ./.github/utils/prep
+        with:
+          DOTENV: ${{ secrets.DOTENV }}
 
-#       - name: ">>> Run tests ${{ github.job }}"
-#         id: first-attempt
-#         run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
+      - name: ">>> Run tests ${{ github.job }}"
+        id: first-attempt
+        run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
 
-#       - name: ">>> Retry"
-#         if: steps.first-attempt.outputs.res == 'fail'
-#         run: npm run test:monarch:headless ${{ github.job }}
+      - name: ">>> Retry"
+        if: steps.first-attempt.outputs.res == 'fail'
+        run: npm run test:monarch:headless ${{ github.job }}
 
-#       - uses: ./.github/utils/extract-logs
-#         if: failure()
+      - uses: ./.github/utils/extract-logs
+        if: failure()
 
-#   delivery-pins:
-#     needs: [commercial]
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#         with:
-#           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
-#       - uses: ./.github/utils/prep
-#         with:
-#           DOTENV: ${{ secrets.DOTENV }}
+  delivery-pins:
+    needs: [commercial]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: runslikebutter/e2e
+          token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
+      - uses: ./.github/utils/prep
+        with:
+          DOTENV: ${{ secrets.DOTENV }}
 
-#       - name: ">>> Run tests ${{ github.job }}"
-#         id: first-attempt
-#         run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
+      - name: ">>> Run tests ${{ github.job }}"
+        id: first-attempt
+        run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
 
-#       - name: ">>> Retry"
-#         if: steps.first-attempt.outputs.res == 'fail'
-#         run: npm run test:monarch:headless ${{ github.job }}
+      - name: ">>> Retry"
+        if: steps.first-attempt.outputs.res == 'fail'
+        run: npm run test:monarch:headless ${{ github.job }}
 
-#       - uses: ./.github/utils/extract-logs
-#         if: failure()
+      - uses: ./.github/utils/extract-logs
+        if: failure()
 
-#   directory:
-#     needs: [delivery-pins]
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#         with:
-#           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
-#       - uses: ./.github/utils/prep
-#         with:
-#           DOTENV: ${{ secrets.DOTENV }}
+  directory:
+    needs: [delivery-pins]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: runslikebutter/e2e
+          token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
+      - uses: ./.github/utils/prep
+        with:
+          DOTENV: ${{ secrets.DOTENV }}
 
-#       - name: ">>> Run tests ${{ github.job }}"
-#         id: first-attempt
-#         run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
+      - name: ">>> Run tests ${{ github.job }}"
+        id: first-attempt
+        run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
 
-#       - name: ">>> Retry"
-#         if: steps.first-attempt.outputs.res == 'fail'
-#         run: npm run test:monarch:headless ${{ github.job }}
+      - name: ">>> Retry"
+        if: steps.first-attempt.outputs.res == 'fail'
+        run: npm run test:monarch:headless ${{ github.job }}
 
-#       - uses: ./.github/utils/extract-logs
-#         if: failure()
+      - uses: ./.github/utils/extract-logs
+        if: failure()
 
-#   door-pins:
-#     needs: [directory]
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#         with:
-#           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
-#       - uses: ./.github/utils/prep
-#         with:
-#           DOTENV: ${{ secrets.DOTENV }}
+  door-pins:
+    needs: [directory]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: runslikebutter/e2e
+          token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
+      - uses: ./.github/utils/prep
+        with:
+          DOTENV: ${{ secrets.DOTENV }}
 
-#       - name: ">>> Run tests ${{ github.job }}"
-#         id: first-attempt
-#         run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
+      - name: ">>> Run tests ${{ github.job }}"
+        id: first-attempt
+        run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
 
-#       - name: ">>> Retry"
-#         if: steps.first-attempt.outputs.res == 'fail'
-#         run: npm run test:monarch:headless ${{ github.job }}
+      - name: ">>> Retry"
+        if: steps.first-attempt.outputs.res == 'fail'
+        run: npm run test:monarch:headless ${{ github.job }}
 
-#       - uses: ./.github/utils/extract-logs
-#         if: failure()
+      - uses: ./.github/utils/extract-logs
+        if: failure()
 
-#   home-page:
-#     needs: [door-pins]
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#         with:
-#           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
-#       - uses: ./.github/utils/prep
-#         with:
-#           DOTENV: ${{ secrets.DOTENV }}
+  home-page:
+    needs: [door-pins]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: runslikebutter/e2e
+          token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
+      - uses: ./.github/utils/prep
+        with:
+          DOTENV: ${{ secrets.DOTENV }}
 
-#       - name: ">>> Run tests ${{ github.job }}"
-#         id: first-attempt
-#         run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
+      - name: ">>> Run tests ${{ github.job }}"
+        id: first-attempt
+        run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
 
-#       - name: ">>> Retry"
-#         if: steps.first-attempt.outputs.res == 'fail'
-#         run: npm run test:monarch:headless ${{ github.job }}
+      - name: ">>> Retry"
+        if: steps.first-attempt.outputs.res == 'fail'
+        run: npm run test:monarch:headless ${{ github.job }}
 
-#       - uses: ./.github/utils/extract-logs
-#         if: failure()
+      - uses: ./.github/utils/extract-logs
+        if: failure()
 
 
-# ##############################
-# # Track 2
-# ##############################
+##############################
+# Track 2
+##############################
 
-#   inactive:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#         with:
-#           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
-#       - uses: ./.github/utils/prep
-#         with:
-#           DOTENV: ${{ secrets.DOTENV }}
+  inactive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: runslikebutter/e2e
+          token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
+      - uses: ./.github/utils/prep
+        with:
+          DOTENV: ${{ secrets.DOTENV }}
 
-#       - name: ">>> Run tests ${{ github.job }}"
-#         id: first-attempt
-#         run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
+      - name: ">>> Run tests ${{ github.job }}"
+        id: first-attempt
+        run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
 
-#       - name: ">>> Retry"
-#         if: steps.first-attempt.outputs.res == 'fail'
-#         run: npm run test:monarch:headless ${{ github.job }}
+      - name: ">>> Retry"
+        if: steps.first-attempt.outputs.res == 'fail'
+        run: npm run test:monarch:headless ${{ github.job }}
 
-#       - uses: ./.github/utils/extract-logs
-#         if: failure()
+      - uses: ./.github/utils/extract-logs
+        if: failure()
 
-#   package-room:
-#     needs: [inactive]
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#         with:
-#           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
-#       - uses: ./.github/utils/prep
-#         with:
-#           DOTENV: ${{ secrets.DOTENV }}
+  package-room:
+    needs: [inactive]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: runslikebutter/e2e
+          token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
+      - uses: ./.github/utils/prep
+        with:
+          DOTENV: ${{ secrets.DOTENV }}
 
-#       - name: ">>> Run tests ${{ github.job }}"
-#         id: first-attempt
-#         run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
+      - name: ">>> Run tests ${{ github.job }}"
+        id: first-attempt
+        run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
 
-#       - name: ">>> Retry"
-#         if: steps.first-attempt.outputs.res == 'fail'
-#         run: npm run test:monarch:headless ${{ github.job }}
+      - name: ">>> Retry"
+        if: steps.first-attempt.outputs.res == 'fail'
+        run: npm run test:monarch:headless ${{ github.job }}
 
-#       - uses: ./.github/utils/extract-logs
-#         if: failure()
+      - uses: ./.github/utils/extract-logs
+        if: failure()
 
-#   qr:
-#     needs: [package-room]
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#         with:
-#           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
-#       - uses: ./.github/utils/prep
-#         with:
-#           DOTENV: ${{ secrets.DOTENV }}
+  qr:
+    needs: [package-room]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: runslikebutter/e2e
+          token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
+      - uses: ./.github/utils/prep
+        with:
+          DOTENV: ${{ secrets.DOTENV }}
       
-#       # Specific to QR tests
-#       - name: Install ffmpeg .deb package for QR video stream generation
-#         run: sudo apt update -y && sudo apt install ffmpeg -y
+      # Specific to QR tests
+      - name: Install ffmpeg .deb package for QR video stream generation
+        run: sudo apt update -y && sudo apt install ffmpeg -y
 
-#       - name: ">>> Run tests ${{ github.job }}"
-#         id: first-attempt
-#         run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
+      - name: ">>> Run tests ${{ github.job }}"
+        id: first-attempt
+        run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
 
-#       - name: ">>> Retry"
-#         if: steps.first-attempt.outputs.res == 'fail'
-#         run: npm run test:monarch:headless ${{ github.job }}
+      - name: ">>> Retry"
+        if: steps.first-attempt.outputs.res == 'fail'
+        run: npm run test:monarch:headless ${{ github.job }}
 
-#       - uses: ./.github/utils/extract-logs
-#         if: failure()
+      - uses: ./.github/utils/extract-logs
+        if: failure()
 
-#   relays:
-#     needs: [qr]
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#         with:
-#           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
-#       - uses: ./.github/utils/prep
-#         with:
-#           DOTENV: ${{ secrets.DOTENV }}
+  relays:
+    needs: [qr]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: runslikebutter/e2e
+          token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
+      - uses: ./.github/utils/prep
+        with:
+          DOTENV: ${{ secrets.DOTENV }}
 
-#       - name: ">>> Run tests ${{ github.job }}"
-#         id: first-attempt
-#         run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
+      - name: ">>> Run tests ${{ github.job }}"
+        id: first-attempt
+        run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
 
-#       - name: ">>> Retry"
-#         if: steps.first-attempt.outputs.res == 'fail'
-#         run: npm run test:monarch:headless ${{ github.job }}
+      - name: ">>> Retry"
+        if: steps.first-attempt.outputs.res == 'fail'
+        run: npm run test:monarch:headless ${{ github.job }}
 
-#       - uses: ./.github/utils/extract-logs
-#         if: failure()
+      - uses: ./.github/utils/extract-logs
+        if: failure()
 
-#   vk-pins:
-#     needs: [relays]
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#         with:
-#           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
-#       - uses: ./.github/utils/prep
-#         with:
-#           DOTENV: ${{ secrets.DOTENV }}
+  vk-pins:
+    needs: [relays]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: runslikebutter/e2e
+          token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
+      - uses: ./.github/utils/prep
+        with:
+          DOTENV: ${{ secrets.DOTENV }}
 
-#       - name: ">>> Run tests ${{ github.job }}"
-#         id: first-attempt
-#         run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
+      - name: ">>> Run tests ${{ github.job }}"
+        id: first-attempt
+        run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
 
-#       - name: ">>> Retry"
-#         if: steps.first-attempt.outputs.res == 'fail'
-#         run: npm run test:monarch:headless ${{ github.job }}
+      - name: ">>> Retry"
+        if: steps.first-attempt.outputs.res == 'fail'
+        run: npm run test:monarch:headless ${{ github.job }}
 
-#       - uses: ./.github/utils/extract-logs
-#         if: failure()
+      - uses: ./.github/utils/extract-logs
+        if: failure()
 
-#   zones:
-#     needs: [vk-pins]
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#         with:
-#           repository: runslikebutter/e2e
-#           token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
-#       - uses: ./.github/utils/prep
-#         with:
-#           DOTENV: ${{ secrets.DOTENV }}
+  zones:
+    needs: [vk-pins]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: runslikebutter/e2e
+          token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
+      - uses: ./.github/utils/prep
+        with:
+          DOTENV: ${{ secrets.DOTENV }}
 
-#       - name: ">>> Run tests ${{ github.job }}"
-#         id: first-attempt
-#         run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
+      - name: ">>> Run tests ${{ github.job }}"
+        id: first-attempt
+        run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
 
-#       - name: ">>> Retry"
-#         if: steps.first-attempt.outputs.res == 'fail'
-#         run: npm run test:monarch:headless ${{ github.job }}
+      - name: ">>> Retry"
+        if: steps.first-attempt.outputs.res == 'fail'
+        run: npm run test:monarch:headless ${{ github.job }}
 
-#       - uses: ./.github/utils/extract-logs
-#         if: failure()
+      - uses: ./.github/utils/extract-logs
+        if: failure()
