@@ -1,0 +1,17 @@
+on:
+  workflow_call:
+    secrets:
+      E2E_REPO_TOKEN:
+        required: false
+
+jobs:
+  prep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: runslikebutter/e2e
+          token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
+
+      - name: Get Node Modules
+        uses: ./.github/utils/cache
