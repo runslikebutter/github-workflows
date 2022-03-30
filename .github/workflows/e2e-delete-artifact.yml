@@ -1,0 +1,10 @@
+on: workflow_call
+
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: geekyeggo/delete-artifact@v1
+        with:
+          name: dist-linux-e2e
+          failOnError: false

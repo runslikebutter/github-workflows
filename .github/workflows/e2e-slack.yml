@@ -16,7 +16,6 @@ jobs:
   deploy-staging:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - name: Echo message
         run: |
           TEXT="${{ inputs.message }} (<${{ env.WORKFLOW_URL }}|link>)."

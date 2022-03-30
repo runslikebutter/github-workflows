@@ -1,0 +1,12 @@
+on: workflow_call
+
+jobs:
+  prep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: runslikebutter/e2e
+
+      - name: Get Node Modules
+        uses: ./.github/utils/cache

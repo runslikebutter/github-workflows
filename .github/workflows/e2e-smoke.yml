@@ -1,0 +1,47 @@
+on:
+  workflow_call:
+    secrets:
+      DOTENV: { required: true }
+
+jobs:
+  basic-ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: runslikebutter/e2e
+      - uses: ./.github/utils/prep
+        with:
+          DOTENV: ${{ secrets.DOTENV }}
+
+      - name: ">>> Run tests ${{ github.job }}"
+        id: first-attempt
+        run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
+
+      - name: ">>> Retry"
+        if: steps.first-attempt.outputs.res == 'fail'
+        run: npm run test:monarch:headless ${{ github.job }}
+
+      - uses: ./.github/utils/extract-logs
+        if: failure()
+
+  few-pins:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: runslikebutter/e2e
+      - uses: ./.github/utils/prep
+        with:
+          DOTENV: ${{ secrets.DOTENV }}
+
+      - name: ">>> Run tests ${{ github.job }}"
+        id: first-attempt
+        run: npm run test:monarch:headless ${{ github.job }} || echo "::set-output name=res::fail"
+
+      - name: ">>> Retry"
+        if: steps.first-attempt.outputs.res == 'fail'
+        run: npm run test:monarch:headless ${{ github.job }}
+
+      - uses: ./.github/utils/extract-logs
+        if: failure()

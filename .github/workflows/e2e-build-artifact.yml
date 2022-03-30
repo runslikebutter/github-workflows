@@ -1,0 +1,12 @@
+on: workflow_call
+
+jobs:
+  prep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build
+        uses: runslikebutter/github-workflows/actions/build-linux@v2
+        with:
+          artifact_name: dist-linux-e2e
