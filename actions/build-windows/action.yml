@@ -3,6 +3,10 @@ inputs:
     description: "what to name the uploaded build artifact"
     default: "dist-win"
     required: true
+  cache_version:
+    description: "version to include in cache key"
+    default: "1"
+    required: false
   ssh_key:
     description: "ssh key for bmx-access-toolkit repo"
     required: true
@@ -11,8 +15,9 @@ runs:
   using: "composite"
   steps:
     - name: Prep and install dependencies
-      uses: runslikebutter/github-workflows/actions/install-dependencies@v1
+      uses: runslikebutter/github-workflows/actions/install-dependencies@v3
       with:
+        cache_version: ${{ inputs.cache_version }}
         ssh_key: ${{ inputs.ssh_key }}
 
     - name: Build

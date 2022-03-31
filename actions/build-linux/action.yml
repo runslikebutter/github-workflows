@@ -3,6 +3,10 @@ inputs:
     description: "what to name the uploaded build artifact"
     default: "dist-linux"
     required: true
+  cache_version:
+    description: "version to include in cache key"
+    default: "1"
+    required: false
   create_sentry_artifact:
     description: "whether to upload an artifact for sentry release"
     default: "false"
@@ -25,8 +29,9 @@ runs:
         sudo apt-get install -y libudev-dev
 
     - name: Prep and install dependencies
-      uses: runslikebutter/github-workflows/actions/install-dependencies@v1
+      uses: runslikebutter/github-workflows/actions/install-dependencies@v3
       with:
+        cache_version: ${{ inputs.cache_version }}
         ssh_key: ${{ inputs.ssh_key }}
 
     - name: Build

@@ -43,6 +43,8 @@ on:
         required: true
       BMX_ACCESS_TOOLKIT_SSH_KEY:
         required: true
+      CACHE_VERSION:
+        required: true
       CSC_KEY_PASSWORD:
         required: true
       CSC_LINK:
@@ -58,9 +60,10 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: runslikebutter/github-workflows/actions/build-windows@v1
+        uses: runslikebutter/github-workflows/actions/build-windows@v3
         with:
           artifact_name: ${{ inputs.windows_artifact_name }}
+          cache_version: ${{ secrets.CACHE_VERSION }}
           ssh_key: ${{ secrets.BMX_ACCESS_TOOLKIT_SSH_KEY }}
 
   build_on_linux:
@@ -72,9 +75,10 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: runslikebutter/github-workflows/actions/build-linux@v1
+        uses: runslikebutter/github-workflows/actions/build-linux@v3
         with:
           artifact_name: ${{ inputs.linux_artifact_name }}
+          cache_version: ${{ secrets.CACHE_VERSION }}
           create_sentry_artifact: ${{ inputs.create_sentry_artifact }}
           sentry_artifact_name: ${{ inputs.sentry_artifact_name }}
           ssh_key: ${{ secrets.BMX_ACCESS_TOOLKIT_SSH_KEY }}
@@ -88,9 +92,10 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: runslikebutter/github-workflows/actions/build-mac@v1
+        uses: runslikebutter/github-workflows/actions/build-mac@v3
         with:
           artifact_name: ${{ inputs.mac_artifact_name }}
+          cache_version: ${{ secrets.CACHE_VERSION }}
           ssh_key: ${{ secrets.BMX_ACCESS_TOOLKIT_SSH_KEY }}
           apple_app_password: ${{ secrets.APPLE_APP_PASSWORD }}
           apple_id: ${{ secrets.APPLE_ID }}
@@ -98,7 +103,7 @@ jobs:
           csc_link: ${{ secrets.CSC_LINK }}
 
   s3_artifact_upload:
-    name: S3 features & latest upload
+    name: S3 features & latest uploadf
     runs-on: ubuntu-latest
     needs: [build_on_linux, build_on_win, build_on_mac]
     env:

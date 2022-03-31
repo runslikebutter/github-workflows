@@ -1,3 +1,8 @@
+inputs:
+  cache_version:
+    description: "version to include in cache key"
+    default: "1"
+    required: false
 outputs:
   cache-hit:
     value: ${{ steps.cache.outputs.cache-hit }}
@@ -10,4 +15,4 @@ runs:
       uses: actions/cache@v2
       with:
         path: ./panel-app/node_modules
-        key: yarn-3-${{ runner.os }}-${{ hashFiles('./panel-app/yarn.lock') }}
+        key: yarn-v${{ inputs.cache_version }}-${{ runner.os }}-${{ hashFiles('./panel-app/yarn.lock') }}

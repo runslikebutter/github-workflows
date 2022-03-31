@@ -5,7 +5,7 @@ Workflow and actions used for Monarch and Front Desk Station CI
 ### Workflows
 ```
 name: Bump version
-  uses: runslikebutter/github-workflows/.github/workflows/bump-version.yml@v1
+  uses: runslikebutter/github-workflows/.github/workflows/bump-version.yml@v3
   with:
     branch: develop
   secrets:
@@ -15,7 +15,7 @@ name: Bump version
 ### Actions
 ```
 name: Prep and install dependencies
-  uses: runslikebutter/github-workflows/actions/install-dependencies@v1
+  uses: runslikebutter/github-workflows/actions/install-dependencies@v3
   with:
     ssh_key: ${{ secrets.SOME_SSH_KEY }}
 ```

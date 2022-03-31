@@ -1,7 +1,10 @@
 inputs:
+  cache_version:
+    description: "version to include in cache key"
+    required: false
+    default: "1"
   ssh_key:
     required: true
-    type: string
 
 runs:
   using: "composite"
@@ -12,11 +15,13 @@ runs:
         ssh-private-key: ${{ inputs.ssh_key }}
 
     - name: Set up node
-      uses: runslikebutter/github-workflows/actions/setup-node@v1
+      uses: runslikebutter/github-workflows/actions/setup-node@v3
 
     - name: Cache dependencies
       id: cache
-      uses: runslikebutter/github-workflows/actions/cache@v1
+      uses: runslikebutter/github-workflows/actions/cache@v3
+      with:
+        cache_version: ${{ inputs.cache_version }}
 
     - name: Install dependencies
       if: steps.cache.outputs.cache-hit != 'true'
