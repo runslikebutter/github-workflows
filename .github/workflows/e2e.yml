@@ -40,6 +40,7 @@ jobs:
 
   basic-ui:
     needs: [access-group]
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -63,6 +64,7 @@ jobs:
 
   commercial:
     needs: [basic-ui]
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -86,6 +88,7 @@ jobs:
 
   delivery-pins:
     needs: [commercial]
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -109,6 +112,7 @@ jobs:
 
   directory:
     needs: [delivery-pins]
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -132,6 +136,7 @@ jobs:
 
   door-pins:
     needs: [directory]
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -155,6 +160,7 @@ jobs:
 
   home-page:
     needs: [door-pins]
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -205,6 +211,7 @@ jobs:
 
   package-room:
     needs: [inactive]
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -228,6 +235,7 @@ jobs:
 
   qr:
     needs: [package-room]
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -255,6 +263,7 @@ jobs:
 
   relays:
     needs: [qr]
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -278,6 +287,7 @@ jobs:
 
   vk-pins:
     needs: [relays]
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -301,6 +311,7 @@ jobs:
 
   zones:
     needs: [vk-pins]
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
