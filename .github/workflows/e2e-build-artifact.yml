@@ -1,5 +1,11 @@
 on:
   workflow_call:
+    inputs:
+      branch:
+        description: "name of the branch to build"
+        required: false
+        default: ""
+        type: string
     secrets:
       ssh_key:
         required: true
@@ -9,6 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.branch }}
 
       - name: Build
         uses: runslikebutter/github-workflows/actions/build-linux@v4

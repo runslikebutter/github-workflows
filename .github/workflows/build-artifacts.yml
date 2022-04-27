@@ -103,7 +103,7 @@ jobs:
           csc_link: ${{ secrets.CSC_LINK }}
 
   s3_artifact_upload:
-    name: S3 features & latest uploadf
+    name: S3 features & latest upload
     runs-on: ubuntu-latest
     needs: [build_on_linux, build_on_win, build_on_mac]
     env:
