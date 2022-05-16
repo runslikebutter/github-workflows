@@ -40,7 +40,7 @@ jobs:
 
   basic-ui:
     needs: [access-group]
-    if: success() || failure()
+    if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -64,7 +64,7 @@ jobs:
 
   commercial:
     needs: [basic-ui]
-    if: success() || failure()
+    if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -88,7 +88,7 @@ jobs:
 
   delivery-pins:
     needs: [commercial]
-    if: success() || failure()
+    if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -112,7 +112,7 @@ jobs:
 
   directory:
     needs: [delivery-pins]
-    if: success() || failure()
+    if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -136,7 +136,7 @@ jobs:
 
   door-pins:
     needs: [directory]
-    if: success() || failure()
+    if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -160,7 +160,7 @@ jobs:
 
   home-page:
     needs: [door-pins]
-    if: success() || failure()
+    if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -211,7 +211,7 @@ jobs:
 
   package-room:
     needs: [inactive]
-    if: success() || failure()
+    if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -235,7 +235,7 @@ jobs:
 
   qr:
     needs: [package-room]
-    if: success() || failure()
+    if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -263,7 +263,7 @@ jobs:
 
   relays:
     needs: [qr]
-    if: success() || failure()
+    if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -287,7 +287,7 @@ jobs:
 
   vk-pins:
     needs: [relays]
-    if: success() || failure()
+    if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -311,7 +311,7 @@ jobs:
 
   zones:
     needs: [vk-pins]
-    if: success() || failure()
+    if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
