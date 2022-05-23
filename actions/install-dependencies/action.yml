@@ -26,5 +26,5 @@ runs:
     - name: Install dependencies
       if: steps.cache.outputs.cache-hit != 'true'
       shell: bash
-      working-directory: "${{ inputs.app_name == 'front-desk-station' }} ? 'front-desk-station-app' : 'panel-app'"
+      working-directory: "${{ inputs.app_name == 'front-desk-station' ? 'front-desk-station-app' : 'panel-app' }}"
       run: yarn install --prefer-offline --network-concurrency 1
