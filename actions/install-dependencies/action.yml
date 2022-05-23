@@ -21,7 +21,7 @@ runs:
     - name: Set up node
       uses: runslikebutter/github-workflows/actions/setup-node@v3
       with:
-        app-name: ${{ inputs.app_name }}
+        current_app_name: ${{ inputs.app_name }}
 
     - name: Cache dependencies
       id: cache
