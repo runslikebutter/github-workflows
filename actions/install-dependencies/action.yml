@@ -1,4 +1,8 @@
 inputs:
+  app_name:
+    description: 'name of the current app'
+    required: true
+    default: 'monarch'
   cache_version:
     description: 'version to include in cache key'
     required: false
@@ -32,7 +36,7 @@ runs:
       run: yarn install --prefer-offline --network-concurrency 1
 
     - name: Install dependencies for Monarch
-      if: steps.cache.outputs.cache-hit != 'true' && ${{ inputs.app_name }} != 'front-desk-station'
+      if: steps.cache.outputs.cache-hit != 'true' && ${{ inputs.app_name }} == 'monarch'
       shell: bash
       working-directory: panel-app
       run: yarn install --prefer-offline --network-concurrency 1
