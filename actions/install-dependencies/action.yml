@@ -1,13 +1,13 @@
 inputs:
   cache_version:
-    description: "version to include in cache key"
+    description: 'version to include in cache key'
     required: false
-    default: "1"
+    default: '1'
   ssh_key:
     required: true
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Add SSH key
       uses: webfactory/ssh-agent@v0.5.3
@@ -26,5 +26,5 @@ runs:
     - name: Install dependencies
       if: steps.cache.outputs.cache-hit != 'true'
       shell: bash
-      working-directory: panel-app
+      working-directory: "${{ inputs.app_name == 'front-desk-station' }} ? 'front-desk-station-app' : 'panel-app'"
       run: yarn install --prefer-offline --network-concurrency 1
