@@ -20,15 +20,17 @@ runs:
 
     - name: Set up node for FDS
       if: inputs.app_name == 'front-desk-station'
-      uses: runslikebutter/github-workflows/actions/setup-node@v4
+      # uses: runslikebutter/github-workflows/actions/setup-node@v4
+      uses: actions/setup-node@v3
       with:
-        node_version: 16.13.0
+        node-version: 16.13.0
 
     - name: Set up node for Monarch
       if: inputs.app_name == 'monarch'
-      uses: runslikebutter/github-workflows/actions/setup-node@v4
+      # uses: runslikebutter/github-workflows/actions/setup-node@v4
+      uses: actions/setup-node@v3
       with:
-        node_version: 14.17.0
+        node-version: 14.17.0
 
     - name: Cache dependencies
       id: cache
