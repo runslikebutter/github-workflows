@@ -30,13 +30,13 @@ runs:
         cache_version: ${{ inputs.cache_version }}
 
     - name: Install dependencies for FDS
-      if: steps.cache.outputs.cache-hit != 'true' && inputs.node_version == 16.13.0
+      if: steps.cache.outputs.cache-hit != 'true' && inputs.node_version == '16.13.0'
       shell: bash
       working-directory: .
       run: yarn install --prefer-offline --network-concurrency 1
 
     - name: Install dependencies for Monarch
-      if: steps.cache.outputs.cache-hit != 'true' && inputs.node_version == 14.17.0
+      if: steps.cache.outputs.cache-hit != 'true' && inputs.node_version == '14.17.0'
       shell: bash
       working-directory: panel-app
       run: yarn install --prefer-offline --network-concurrency 1
