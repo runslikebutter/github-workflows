@@ -32,7 +32,7 @@ runs:
 
     - name: Cache dependencies
       id: cache
-      uses: runslikebutter/github-workflows/actions/cache@MET-2510
+      uses: runslikebutter/github-workflows/actions/cache@v3
       with:
         cache_version: ${{ inputs.cache_version }}
 
