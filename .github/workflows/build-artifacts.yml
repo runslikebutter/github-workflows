@@ -10,7 +10,7 @@ on:
       bucket_name:
         default: "monarch-np-util"
         description: "name of the S3 bucket to upload the built artifacts to"
-        required: true
+        required: false
         type: string
       create_sentry_artifact:
         description: "whether to upload an artifact for sentry release"
