@@ -29,7 +29,7 @@ runs:
         sudo apt-get install -y libudev-dev
 
     - name: Prep and install dependencies
-      uses: runslikebutter/github-workflows/actions/install-dependencies@MET-2510
+      uses: runslikebutter/github-workflows/actions/install-dependencies@MET-1900
       with:
         cache_version: ${{ inputs.cache_version }}
         ssh_key: ${{ inputs.ssh_key }}

@@ -19,7 +19,7 @@ runs:
         ssh-private-key: ${{ inputs.ssh_key }}
 
     - name: Set up node
-      uses: runslikebutter/github-workflows/actions/setup-node@MET-2510
+      uses: runslikebutter/github-workflows/actions/setup-node@MET-1900
       with:
         node_version: ${{ inputs.node_version }}
 
