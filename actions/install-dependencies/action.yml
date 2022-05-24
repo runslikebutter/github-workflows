@@ -21,7 +21,7 @@ runs:
     - name: Set up node
       uses: runslikebutter/github-workflows/actions/setup-node@v3
       env:
-        INPUT_APP_NAME: ${{ inputs.app_name }}
+        CURRENT_APP_NAME: ${{ inputs.app_name }}
 
     - name: Cache dependencies
       id: cache
@@ -30,13 +30,13 @@ runs:
         cache_version: ${{ inputs.cache_version }}
 
     - name: Install dependencies for FDS
-      if: steps.cache.outputs.cache-hit != 'true' && ${{ inputs.app_name }} == 'front-desk-station'
+      if: steps.cache.outputs.cache-hit != 'true' && ${{ inputs.app_name == 'front-desk-station' }}
       shell: bash
       working-directory: .
       run: yarn install --prefer-offline --network-concurrency 1
 
     - name: Install dependencies for Monarch
-      if: steps.cache.outputs.cache-hit != 'true' && ${{ inputs.app_name }} == 'monarch'
+      if: steps.cache.outputs.cache-hit != 'true' && ${{ inputs.app_name == 'monarch' }}
       shell: bash
       working-directory: panel-app
       run: yarn install --prefer-offline --network-concurrency 1
