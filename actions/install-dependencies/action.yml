@@ -20,8 +20,8 @@ runs:
 
     - name: Set up node
       uses: runslikebutter/github-workflows/actions/setup-node@v3
-      with:
-        app_name: ${{ inputs.app_name }}
+      env:
+        INPUT_APP_NAME: ${{ inputs.app_name }}
 
     - name: Cache dependencies
       id: cache

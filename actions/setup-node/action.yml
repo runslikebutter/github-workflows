@@ -1,20 +1,20 @@
-inputs:
-  app_name:
-    description: 'name of the current app'
-    required: true
-    default: 'monarch'
+# inputs:
+#   app_name:
+#     description: 'name of the current app'
+#     required: true
+#     default: 'monarch'
 
 runs:
   using: 'composite'
   steps:
-    - name: Set up node
+    - name: Set up node for FDS
       if: ${{ inputs.app_name }} == 'front-desk-station'
       uses: actions/setup-node@v2
       with:
         node-version: 16.13.0
 
-    - name: Set up node
-      if: ${{ inputs.app_name }} == 'monarch'
+    - name: Set up node for Monarch
+      if: ${{ inputs.app_name }} != 'front-desk-station'
       uses: actions/setup-node@v2
       with:
         node-version: 14.17.0
