@@ -19,7 +19,6 @@ runs:
         ssh-private-key: ${{ inputs.ssh_key }}
 
     - name: Set up node
-      if: inputs.app_name == 'front-desk-station'
       uses: runslikebutter/github-workflows/actions/setup-node@MET-2510
       with:
         node_version: ${{ inputs.node_version }}
