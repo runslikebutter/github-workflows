@@ -29,7 +29,7 @@ runs:
 
     - name: Cache dependencies
       id: cache
-      uses: runslikebutter/github-workflows/actions/cache@v3
+      uses: runslikebutter/github-workflows/actions/cache@MET-1900
       with:
         cache_version: ${{ inputs.cache_version }}
         project_root_path: ${{ inputs.working_directory }}
