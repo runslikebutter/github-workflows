@@ -1,13 +1,13 @@
 # hi
 inputs:
   node_version:
-    description: "node version to use for the current app"
+    description: "Node version to use for the current app"
     required: true
 
 runs:
   using: "composite"
   steps:
     - name: Set up node
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v2
       with:
         node-version: ${{ inputs.node_version }}

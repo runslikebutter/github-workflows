@@ -1,12 +1,12 @@
 inputs:
-  app_name:
-    description: "name of the current app"
-    required: true
-    default: "monarch"
   cache_version:
     description: "version to include in cache key"
     required: false
     default: "1"
+  node_version:
+    description: "the version of Node to install dependencies against"
+    required: false
+    default: 14.17.0
   ssh_key:
     required: true
 
@@ -18,17 +18,17 @@ runs:
       with:
         ssh-private-key: ${{ inputs.ssh_key }}
 
-    - name: Set up node for FDS
+    - name: Set up node
       if: inputs.app_name == 'front-desk-station'
       uses: runslikebutter/github-workflows/actions/setup-node@MET-2510
       with:
-        node_version: 16.13.0
+        node_version: ${{ inputs.node_version }}
 
-    - name: Set up node for Monarch
-      if: inputs.app_name == 'monarch'
-      uses: runslikebutter/github-workflows/actions/setup-node@MET-2510
-      with:
-        node_version: 14.17.0
+    # - name: Set up node for Monarch
+    #   if: inputs.app_name == 'monarch'
+    #   uses: runslikebutter/github-workflows/actions/setup-node@MET-2510
+    #   with:
+    #     node_version: 14.17.0
 
     - name: Cache dependencies
       id: cache
@@ -39,7 +39,7 @@ runs:
     - name: Install dependencies for FDS
       if: steps.cache.outputs.cache-hit != 'true' && inputs.app_name == 'front-desk-station'
       shell: bash
-      working-directory: .
+      working-directory: ./
       run: yarn install --prefer-offline --network-concurrency 1
 
     - name: Install dependencies for Monarch
