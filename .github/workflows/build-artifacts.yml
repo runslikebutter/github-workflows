@@ -27,18 +27,18 @@ on:
         required: false
         default: dist-linux
         type: string
-      path_for_package_json:
-        # ideally, this default is set to the project root "./" and anything that deviates would pass in a special path (e.g. Monarch)
-        default: "./panel-app"
-        description: "path to the package.json file to get the version number from"
-        required: false
-        type: string
       path_for_s3:
         # this path is being specified because the Monarch bucket has extra directories to go through
         # FDS will just upload to the root of the bucket in S3
         # ideally, this default is set to the root of the bucket "./" and anything that deviates would pass in a special path (e.g. Monarch)
         default: "artifacts/monarch-app"
         description: "path to the root of the s3 bucket where the artifacts will be uploaded"
+        required: false
+        type: string
+      path_to_package_json:
+        # ideally, this default is set to the project root "./" and anything that deviates would pass in a special path (e.g. Monarch)
+        default: "./panel-app"
+        description: "path to the package.json file to get the version number from"
         required: false
         type: string
       sentry_artifact_name:
@@ -79,7 +79,7 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: runslikebutter/github-workflows/actions/build-windows@v3
+        uses: runslikebutter/github-workflows/actions/build-windows@MET-1900
         with:
           artifact_name: ${{ inputs.windows_artifact_name }}
           cache_version: ${{ secrets.CACHE_VERSION }}
@@ -94,7 +94,7 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: runslikebutter/github-workflows/actions/build-linux@v3
+        uses: runslikebutter/github-workflows/actions/build-linux@MET-1900
         with:
           artifact_name: ${{ inputs.linux_artifact_name }}
           cache_version: ${{ secrets.CACHE_VERSION }}
@@ -111,7 +111,7 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: runslikebutter/github-workflows/actions/build-mac@v3
+        uses: runslikebutter/github-workflows/actions/build-mac@MET-1900
         with:
           artifact_name: ${{ inputs.mac_artifact_name }}
           cache_version: ${{ secrets.CACHE_VERSION }}
@@ -189,7 +189,7 @@ jobs:
         id: set_s3_archive_path
         run: |
           # get version from package.json
-          VERSION=$( jq -r '.version' ${{ inputs.path_for_package_json }}/package.json )
+          VERSION=$( jq -r '.version' ${{ inputs.path_to_package_json }}/package.json )
           echo ::set-output name=path::$(echo ${{ inputs.path_for_s3 }}/archive/${{ inputs.branch }}/v$VERSION)
 
       - name: Create packages directory

@@ -3,6 +3,11 @@ inputs:
     description: "version to include in cache key"
     default: "1"
     required: false
+  project_root_path:
+    default: "./panel-app"
+    description: "path to the yarn.lock file for hashing"
+    required: false
+
 outputs:
   cache-hit:
     value: ${{ steps.cache.outputs.cache-hit }}
@@ -14,5 +19,5 @@ runs:
       id: cache
       uses: actions/cache@v2
       with:
-        path: ./panel-app/node_modules
-        key: yarn-v${{ inputs.cache_version }}-${{ runner.os }}-${{ hashFiles('./panel-app/yarn.lock') }}
+        path: ${{ inputs.project_root_path }}/node_modules
+        key: yarn-v${{ inputs.cache_version }}-${{ runner.os }}-${{ hashFiles('${{ inputs.project_root_path }}/yarn.lock') }}

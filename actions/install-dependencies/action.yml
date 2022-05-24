@@ -1,14 +1,18 @@
 inputs:
   cache_version:
+    default: "1"
     description: "version to include in cache key"
     required: false
-    default: "1"
   node_version:
+    default: 14.17.0
     description: "the version of Node to install dependencies against"
     required: false
-    default: 14.17.0
   ssh_key:
     required: true
+  working_directory:
+    default: panel-app
+    description: "the directory where `node_modules` will be created"
+    required: false
 
 runs:
   using: "composite"
@@ -28,15 +32,10 @@ runs:
       uses: runslikebutter/github-workflows/actions/cache@v3
       with:
         cache_version: ${{ inputs.cache_version }}
+        project_root_path: ${{ inputs.working_directory }}
 
-    - name: Install dependencies for FDS
-      if: steps.cache.outputs.cache-hit != 'true' && inputs.node_version == '16.13.0'
+    - name: Install dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
       shell: bash
-      working-directory: .
-      run: yarn install --prefer-offline --network-concurrency 1
-
-    - name: Install dependencies for Monarch
-      if: steps.cache.outputs.cache-hit != 'true' && inputs.node_version == '14.17.0'
-      shell: bash
-      working-directory: panel-app
+      working-directory: ${{ inputs.working_directory }}
       run: yarn install --prefer-offline --network-concurrency 1
