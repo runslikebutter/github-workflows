@@ -22,6 +22,8 @@ runs:
     - name: Cache dependencies/restore cache
       id: cache
       uses: actions/cache@v2
+      env:
+        HASH_FILES_YARN_LOCK_PATH: ${{ inputs.project_root_path }}/yarn.lock
       with:
         path: ${{ inputs.project_root_path }}/node_modules
-        key: yarn-v${{ inputs.cache_version }}-${{ runner.os }}-${{ hashFiles(inputs.project_root_path + '/yarn.lock') }}
+        key: yarn-v${{ inputs.cache_version }}-${{ runner.os }}-${{ hashFiles(env.HASH_FILES_YARN_LOCK_PATH) }}
