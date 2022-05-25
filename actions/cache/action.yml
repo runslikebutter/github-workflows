@@ -4,7 +4,7 @@ inputs:
     default: "1"
     required: false
   project_root_path:
-    default: "./panel-app"
+    default: ./panel-app
     description: "path to the yarn.lock file for hashing"
     required: false
 
