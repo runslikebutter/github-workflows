@@ -8,7 +8,7 @@ on:
         required: true
         type: string
       bucket_name:
-        default: "monarch-np-util"
+        default: monarch-np-util
         description: "name of the S3 bucket to upload the built artifacts to"
         required: false
         type: string
@@ -17,6 +17,11 @@ on:
         required: false
         default: false
         type: boolean
+      distro_path:
+        description: "the directory that we will create the built distros in"
+        default: panel-app/dist_electron
+        required: false
+        type: string
       mac_artifact_name:
         description: "what to name the uploaded mac build artifact"
         required: false
@@ -31,13 +36,13 @@ on:
         # this path is being specified because the Monarch bucket has extra directories to go through
         # FDS will just upload to the root of the bucket in S3
         # ideally, this default is set to the root of the bucket "./" and anything that deviates would pass in a special path (e.g. Monarch)
-        default: "artifacts/monarch-app"
+        default: artifacts/monarch-app
         description: "path to the root of the s3 bucket where the artifacts will be uploaded"
         required: false
         type: string
       path_to_package_json:
         # ideally, this default is set to the project root "./" and anything that deviates would pass in a special path (e.g. Monarch)
-        default: "./panel-app"
+        default: ./panel-app
         description: "path to the package.json file to get the version number from"
         required: false
         type: string
@@ -83,6 +88,7 @@ jobs:
         with:
           artifact_name: ${{ inputs.windows_artifact_name }}
           cache_version: ${{ secrets.CACHE_VERSION }}
+          distro_path: ${{ inputs.distro_path }}
           ssh_key: ${{ secrets.BMX_ACCESS_TOOLKIT_SSH_KEY }}
 
   build_on_linux:
@@ -99,6 +105,7 @@ jobs:
           artifact_name: ${{ inputs.linux_artifact_name }}
           cache_version: ${{ secrets.CACHE_VERSION }}
           create_sentry_artifact: ${{ inputs.create_sentry_artifact }}
+          distro_path: ${{ inputs.distro_path }}
           sentry_artifact_name: ${{ inputs.sentry_artifact_name }}
           ssh_key: ${{ secrets.BMX_ACCESS_TOOLKIT_SSH_KEY }}
 
@@ -115,6 +122,7 @@ jobs:
         with:
           artifact_name: ${{ inputs.mac_artifact_name }}
           cache_version: ${{ secrets.CACHE_VERSION }}
+          distro_path: ${{ inputs.distro_path }}
           ssh_key: ${{ secrets.BMX_ACCESS_TOOLKIT_SSH_KEY }}
           apple_app_password: ${{ secrets.APPLE_APP_PASSWORD }}
           apple_id: ${{ secrets.APPLE_ID }}

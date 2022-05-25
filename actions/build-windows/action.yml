@@ -7,6 +7,10 @@ inputs:
     description: "version to include in cache key"
     default: "1"
     required: false
+  distro_path:
+    description: "the directory that we will create the built distro in"
+    default: panel-app/dist_electron
+    required: false
   ssh_key:
     description: "ssh key for bmx-access-toolkit repo"
     required: true
@@ -35,8 +39,8 @@ runs:
       with:
         name: ${{ inputs.artifact_name }}
         path: |
-          panel-app/dist_electron/*.exe
-          panel-app/dist_electron/*.blockmap
-          panel-app/dist_electron/latest*.yml
+          ${{ inputs.working_directory }}/*.exe
+          ${{ inputs.working_directory }}/*.blockmap
+          ${{ inputs.working_directory }}/latest*.yml
         if-no-files-found: error
         retention-days: 1
