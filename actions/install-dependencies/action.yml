@@ -1,3 +1,6 @@
+name: Install Dependencies
+description: "Install dependencies for the current project"
+
 inputs:
   cache_version:
     default: "1"
@@ -8,6 +11,7 @@ inputs:
     description: "the version of Node to install dependencies against"
     required: false
   ssh_key:
+    description: "ssh key for bmx-access-toolkit repo"
     required: true
   working_directory:
     default: panel-app

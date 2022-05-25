@@ -1,15 +1,19 @@
+name: Cache
+description: "Checks for and, if needed, restores a cache of the projects dependencies"
+
 inputs:
   cache_version:
     description: "version to include in cache key"
     default: "1"
     required: false
   project_root_path:
-    default: ./panel-app
     description: "path to the yarn.lock file for hashing"
+    default: ./panel-app
     required: false
 
 outputs:
   cache-hit:
+    description: "whether a previously existing cache was found"
     value: ${{ steps.cache.outputs.cache-hit }}
 
 runs:

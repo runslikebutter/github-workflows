@@ -39,8 +39,8 @@ runs:
       with:
         name: ${{ inputs.artifact_name }}
         path: |
-          ${{ inputs.working_directory }}/*.exe
-          ${{ inputs.working_directory }}/*.blockmap
-          ${{ inputs.working_directory }}/latest*.yml
+          ${{ inputs.distro_path }}/*.exe
+          ${{ inputs.distro_path }}/*.blockmap
+          ${{ inputs.distro_path }}/latest*.yml
         if-no-files-found: error
         retention-days: 1

@@ -11,6 +11,10 @@ inputs:
     description: "whether to upload an artifact for sentry release"
     default: "false"
     required: false
+  distro_path:
+    description: "the directory that we will create the built distro in"
+    default: panel-app/dist_electron
+    required: false
   sentry_artifact_name:
     description: "what to name the uploaded build artifact for Sentry"
     default: "dist-sentry"
@@ -41,7 +45,7 @@ runs:
 
     - name: See dist directory
       shell: bash
-      working-directory: panel-app/dist_electron
+      working-directory: ${{ inputs.distro_path }}
       run: ls
 
     - name: Archive artifacts
@@ -49,9 +53,9 @@ runs:
       with:
         name: ${{ inputs.artifact_name }}
         path: |
-          panel-app/dist_electron/*.blockmap
-          panel-app/dist_electron/*.AppImage
-          panel-app/dist_electron/latest*.yml
+          ${{ inputs.distro_path }}/*.blockmap
+          ${{ inputs.distro_path }}/*.AppImage
+          ${{ inputs.distro_path }}/latest*.yml
         if-no-files-found: error
         retention-days: 1
 
@@ -61,6 +65,6 @@ runs:
       with:
         name: ${{ inputs.sentry_artifact_name }}
         path: |
-          panel-app/dist_electron/
+          ${{ inputs.distro_path }}/
         if-no-files-found: error
         retention-days: 1
