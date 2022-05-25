@@ -1,3 +1,6 @@
+name: Build Windows
+description: "Builds the Windows executable/installer for distribution"
+
 inputs:
   artifact_name:
     description: "what to name the uploaded build artifact"

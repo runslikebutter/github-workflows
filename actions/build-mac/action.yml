@@ -1,3 +1,6 @@
+name: Build Mac
+description: "Builds the Mac application for distribution"
+
 inputs:
   artifact_name:
     description: "what to name the uploaded build artifact"
@@ -11,12 +14,16 @@ inputs:
     description: "ssh key for bmx-access-toolkit repo"
     required: true
   apple_app_password:
+    description: "password to use for Apple signing"
     required: true
   apple_id:
+    description: "ID to use for Apple signing"
     required: true
   csc_key_password:
+    description: "another password to use for Apple signing"
     required: true
   csc_link:
+    description: "a link to use for Apple signing"
     required: true
 
 runs:
