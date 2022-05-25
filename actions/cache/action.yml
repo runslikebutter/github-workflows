@@ -24,4 +24,4 @@ runs:
       uses: actions/cache@v2
       with:
         path: ${{ inputs.project_root_path }}/node_modules
-        key: yarn-v${{ inputs.cache_version }}-${{ runner.os }}-${{ hashFiles('${{ inputs.project_root_path }}/yarn.lock') }}
+        key: yarn-v${{ inputs.cache_version }}-${{ runner.os }}-${{ hashFiles(inputs.project_root_path + '/yarn.lock') }}
