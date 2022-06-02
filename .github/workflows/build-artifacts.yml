@@ -60,7 +60,7 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: runslikebutter/github-workflows/actions/build-windows@v3
+        uses: runslikebutter/github-workflows/actions/build-windows@v5
         with:
           artifact_name: ${{ inputs.windows_artifact_name }}
           cache_version: ${{ secrets.CACHE_VERSION }}
@@ -75,7 +75,7 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: runslikebutter/github-workflows/actions/build-linux@v3
+        uses: runslikebutter/github-workflows/actions/build-linux@v5
         with:
           artifact_name: ${{ inputs.linux_artifact_name }}
           cache_version: ${{ secrets.CACHE_VERSION }}
@@ -92,7 +92,7 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: runslikebutter/github-workflows/actions/build-mac@v3
+        uses: runslikebutter/github-workflows/actions/build-mac@v5
         with:
           artifact_name: ${{ inputs.mac_artifact_name }}
           cache_version: ${{ secrets.CACHE_VERSION }}

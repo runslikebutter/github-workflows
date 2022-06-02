@@ -15,11 +15,11 @@ runs:
         ssh-private-key: ${{ inputs.ssh_key }}
 
     - name: Set up node
-      uses: runslikebutter/github-workflows/actions/setup-node@v3
+      uses: runslikebutter/github-workflows/actions/setup-node@v5
 
     - name: Cache dependencies
       id: cache
-      uses: runslikebutter/github-workflows/actions/cache@v3
+      uses: runslikebutter/github-workflows/actions/cache@v5
       with:
         cache_version: ${{ inputs.cache_version }}
 
