@@ -18,6 +18,10 @@ inputs:
     description: "the directory that we will create the built distro in"
     default: panel-app/dist_electron
     required: false
+  node_version:
+    default: 14.17.0
+    description: "the version of Node to install dependencies against"
+    required: false
   sentry_artifact_name:
     description: "what to name the uploaded build artifact for Sentry"
     default: "dist-sentry"
@@ -25,6 +29,10 @@ inputs:
   ssh_key:
     description: "ssh key for bmx-access-toolkit repo"
     required: true
+  working_directory:
+    default: panel-app
+    description: "the directory where `node_modules` will be created"
+    required: false
 
 runs:
   using: "composite"
@@ -39,11 +47,13 @@ runs:
       uses: runslikebutter/github-workflows/actions/install-dependencies@MET-1900
       with:
         cache_version: ${{ inputs.cache_version }}
+        node_version: ${{ inputs.node_version }}
         ssh_key: ${{ inputs.ssh_key }}
+        working_directory: ${{ inputs.working_directory }}
 
     - name: Build
       shell: bash
-      working-directory: panel-app
+      working-directory: ${{ inputs.working_directory }}
       run: yarn run build-dist-linux
 
     - name: See dist directory

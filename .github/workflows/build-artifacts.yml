@@ -32,6 +32,11 @@ on:
         required: false
         default: dist-linux
         type: string
+      node_version:
+        default: 14.17.0
+        description: "the version of Node to install dependencies against"
+        required: false
+        type: string
       path_for_s3:
         # this path is being specified because the Monarch bucket has extra directories to go through
         # FDS will just upload to the root of the bucket in S3
@@ -55,6 +60,11 @@ on:
         description: "what to name the uploaded windows build artifact"
         required: false
         default: dist-win
+        type: string
+      working_directory:
+        default: panel-app
+        description: "the directory where `node_modules` will be created"
+        required: false
         type: string
     secrets:
       AWS_ACCESS_KEY_ID:
@@ -89,7 +99,9 @@ jobs:
           artifact_name: ${{ inputs.windows_artifact_name }}
           cache_version: ${{ secrets.CACHE_VERSION }}
           distro_path: ${{ inputs.distro_path }}
+          node_version: ${{ inputs.node_version }}
           ssh_key: ${{ secrets.BMX_ACCESS_TOOLKIT_SSH_KEY }}
+          working_directory: ${{ inputs.working_directory }}
 
   build_on_linux:
     name: Build Linux
@@ -106,8 +118,10 @@ jobs:
           cache_version: ${{ secrets.CACHE_VERSION }}
           create_sentry_artifact: ${{ inputs.create_sentry_artifact }}
           distro_path: ${{ inputs.distro_path }}
+          node_version: ${{ inputs.node_version }}
           sentry_artifact_name: ${{ inputs.sentry_artifact_name }}
           ssh_key: ${{ secrets.BMX_ACCESS_TOOLKIT_SSH_KEY }}
+          working_directory: ${{ inputs.working_directory }}
 
   build_on_mac:
     name: Build Mac
@@ -123,14 +137,16 @@ jobs:
           artifact_name: ${{ inputs.mac_artifact_name }}
           cache_version: ${{ secrets.CACHE_VERSION }}
           distro_path: ${{ inputs.distro_path }}
+          node_version: ${{ inputs.node_version }}
           ssh_key: ${{ secrets.BMX_ACCESS_TOOLKIT_SSH_KEY }}
+          working_directory: ${{ inputs.working_directory }}
           apple_app_password: ${{ secrets.APPLE_APP_PASSWORD }}
           apple_id: ${{ secrets.APPLE_ID }}
           csc_key_password: ${{ secrets.CSC_KEY_PASSWORD }}
           csc_link: ${{ secrets.CSC_LINK }}
 
   s3_artifact_upload:
-    name: S3 features & latest uploadf
+    name: S3 features & latest upload
     runs-on: ubuntu-latest
     needs: [build_on_linux, build_on_win, build_on_mac]
     env:

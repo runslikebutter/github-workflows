@@ -14,9 +14,17 @@ inputs:
     description: "the directory that we will create the built distro in"
     default: panel-app/dist_electron
     required: false
+  node_version:
+    default: 14.17.0
+    description: "the version of Node to install dependencies against"
+    required: false
   ssh_key:
     description: "ssh key for bmx-access-toolkit repo"
     required: true
+  working_directory:
+    default: panel-app
+    description: "the directory where `node_modules` will be created"
+    required: false
 
 runs:
   using: "composite"
@@ -25,7 +33,9 @@ runs:
       uses: runslikebutter/github-workflows/actions/install-dependencies@MET-1900
       with:
         cache_version: ${{ inputs.cache_version }}
+        node_version: ${{ inputs.node_version }}
         ssh_key: ${{ inputs.ssh_key }}
+        working_directory: ${{ inputs.working_directory }}
 
     - name: Build
       shell: powershell
@@ -34,7 +44,7 @@ runs:
 
     - name: See dist directory
       shell: powershell
-      working-directory: panel-app/dist_electron
+      working-directory: ${{ inputs.distro_path }}
       run: ls
 
     - name: Archive artifacts

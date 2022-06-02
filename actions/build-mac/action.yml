@@ -10,9 +10,21 @@ inputs:
     description: "version to include in cache key"
     default: "1"
     required: false
+  distro_path:
+    description: "the directory that we will create the built distros in"
+    default: panel-app/dist_electron
+    required: false
+  node_version:
+    default: 14.17.0
+    description: "the version of Node to install dependencies against"
+    required: false
   ssh_key:
     description: "ssh key for bmx-access-toolkit repo"
     required: true
+  working_directory:
+    default: panel-app
+    description: "the directory where `node_modules` will be created"
+    required: false
   apple_app_password:
     description: "password to use for Apple signing"
     required: true
@@ -33,11 +45,13 @@ runs:
       uses: runslikebutter/github-workflows/actions/install-dependencies@MET-1900
       with:
         cache_version: ${{ inputs.cache_version }}
+        node_version: ${{ inputs.node_version }}
         ssh_key: ${{ inputs.ssh_key }}
+        working_directory: ${{ inputs.working_directory }}
 
     - name: Build
       shell: bash
-      working-directory: panel-app
+      working-directory: ${{ inputs.working_directory }}
       run: yarn run build-dist-mac
       env:
         CSC_LINK: ${{ inputs.csc_link }}
@@ -48,7 +62,7 @@ runs:
 
     - name: See dist directory
       shell: bash
-      working-directory: panel-app/dist_electron
+      working-directory: ${{ inputs.distro_path }}
       run: ls
 
     - name: Archive artifacts
@@ -56,9 +70,9 @@ runs:
       with:
         name: ${{ inputs.artifact_name }}
         path: |
-          panel-app/dist_electron/*.dmg
-          panel-app/dist_electron/*.zip
-          panel-app/dist_electron/*.blockmap
-          panel-app/dist_electron/latest*.yml
+          ${{ inputs.distro_path }}/*.dmg
+          ${{ inputs.distro_path }}/*.zip
+          ${{ inputs.distro_path }}/*.blockmap
+          ${{ inputs.distro_path }}/latest*.yml
         if-no-files-found: error
         retention-days: 1
