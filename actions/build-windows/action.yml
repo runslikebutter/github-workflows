@@ -39,7 +39,7 @@ runs:
 
     - name: Build
       shell: powershell
-      working-directory: panel-app
+      working-directory: ${{ inputs.working_directory }}
       run: yarn run build-dist-win
 
     - name: See dist directory
