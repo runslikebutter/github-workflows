@@ -1,10 +1,11 @@
 inputs:
   artifact_name:
-    description: "name of the build artifact to download"
+    description: 'name of the build artifact to download'
     required: true
   package_directory:
-    description: "path to the directory where package.json file lives"
-    required: true
+    default: .
+    description: 'path to the directory where package.json file lives'
+    required: false
   sentry_auth_token:
     required: true
   sentry_org:
@@ -13,7 +14,7 @@ inputs:
     required: true
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Get release version
       id: get_release_version
@@ -23,12 +24,12 @@ runs:
         # get version from package.json
         echo ::set-output name=release_version::$( jq -r '.version' ./package.json )
 
-    - name: Download Linux artifacts  
+    - name: Download Linux artifacts
       uses: actions/download-artifact@v2
       with:
         name: ${{ inputs.artifact_name }}
         path: temppkg
-          
+
     - name: Create Sentry release
       uses: getsentry/action-release@v1
       env:

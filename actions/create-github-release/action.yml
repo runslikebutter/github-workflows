@@ -1,19 +1,19 @@
 name: Create GitHub Release
-description: "Creates a release distro ready for production"
+description: 'Creates a release distro ready for production'
 
 inputs:
   package_directory:
-    default: panel-app
-    description: "path to the directory where package.json file lives"
+    default: .
+    description: 'path to the directory where package.json file lives'
     required: false
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Get release version
       id: get_release_version
       shell: bash
-      working-directory: ${{ inputs.package_directory }}/
+      working-directory: ${{ inputs.package_directory }}
       run: |
         # get version from package.json
         echo ::set-output name=release_version::$( jq -r '.version' ./package.json )
