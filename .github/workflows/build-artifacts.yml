@@ -4,37 +4,37 @@ on:
   workflow_call:
     inputs:
       branch:
-        description: "name of the branch to build"
+        description: 'name of the branch to build'
         required: true
         type: string
       bucket_name:
         default: monarch-np-util
-        description: "name of the S3 bucket to upload the built artifacts to"
+        description: 'name of the S3 bucket to upload the built artifacts to'
         required: false
         type: string
       create_sentry_artifact:
-        description: "whether to upload an artifact for sentry release"
+        description: 'whether to upload an artifact for sentry release'
         required: false
         default: false
         type: boolean
       distro_path:
-        description: "the directory that we will create the built distros in"
+        description: 'the directory that we will create the built distros in'
         default: panel-app/dist_electron
         required: false
         type: string
       mac_artifact_name:
-        description: "what to name the uploaded mac build artifact"
+        description: 'what to name the uploaded mac build artifact'
         required: false
         default: dist-mac
         type: string
       linux_artifact_name:
-        description: "what to name the uploaded linux build artifact"
+        description: 'what to name the uploaded linux build artifact'
         required: false
         default: dist-linux
         type: string
       node_version:
         default: 14.17.0
-        description: "the version of Node to install dependencies against"
+        description: 'the version of Node to install dependencies against'
         required: false
         type: string
       path_for_s3:
@@ -42,28 +42,28 @@ on:
         # FDS will just upload to the root of the bucket in S3
         # ideally, this default is set to the root of the bucket "./" and anything that deviates would pass in a special path (e.g. Monarch)
         default: artifacts/monarch-app
-        description: "path to the root of the s3 bucket where the artifacts will be uploaded"
+        description: 'path to the root of the s3 bucket where the artifacts will be uploaded'
         required: false
         type: string
       path_to_package_json:
         # ideally, this default is set to the project root "./" and anything that deviates would pass in a special path (e.g. Monarch)
         default: ./panel-app
-        description: "path to the package.json file to get the version number from"
+        description: 'path to the package.json file to get the version number from'
         required: false
         type: string
       sentry_artifact_name:
-        description: "what to name the uploaded sentry build artifact"
+        description: 'what to name the uploaded sentry build artifact'
         required: false
         default: dist-sentry
         type: string
       windows_artifact_name:
-        description: "what to name the uploaded windows build artifact"
+        description: 'what to name the uploaded windows build artifact'
         required: false
         default: dist-win
         type: string
       working_directory:
         default: panel-app
-        description: "the directory where `node_modules` will be created"
+        description: 'the directory where `node_modules` will be created'
         required: false
         type: string
     secrets:

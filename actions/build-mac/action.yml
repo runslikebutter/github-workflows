@@ -1,45 +1,45 @@
 name: Build Mac
-description: "Builds the Mac application for distribution"
+description: 'Builds the Mac application for distribution'
 
 inputs:
   artifact_name:
-    description: "what to name the uploaded build artifact"
-    default: "dist-mac"
+    description: 'what to name the uploaded build artifact'
+    default: 'dist-mac'
     required: true
   cache_version:
-    description: "version to include in cache key"
-    default: "1"
+    description: 'version to include in cache key'
+    default: '1'
     required: false
   distro_path:
-    description: "the directory that we will create the built distros in"
+    description: 'the directory that we will create the built distros in'
     default: panel-app/dist_electron
     required: false
   node_version:
     default: 14.17.0
-    description: "the version of Node to install dependencies against"
+    description: 'the version of Node to install dependencies against'
     required: false
   ssh_key:
-    description: "ssh key for bmx-access-toolkit repo"
+    description: 'ssh key for bmx-access-toolkit repo'
     required: true
   working_directory:
     default: panel-app
-    description: "the directory where `node_modules` will be created"
+    description: 'the directory where `node_modules` will be created'
     required: false
   apple_app_password:
-    description: "password to use for Apple signing"
+    description: 'password to use for Apple signing'
     required: true
   apple_id:
-    description: "ID to use for Apple signing"
+    description: 'ID to use for Apple signing'
     required: true
   csc_key_password:
-    description: "another password to use for Apple signing"
+    description: 'another password to use for Apple signing'
     required: true
   csc_link:
-    description: "a link to use for Apple signing"
+    description: 'a link to use for Apple signing'
     required: true
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Prep and install dependencies
       uses: runslikebutter/github-workflows/actions/install-dependencies@MET-1900
@@ -56,7 +56,7 @@ runs:
       env:
         CSC_LINK: ${{ inputs.csc_link }}
         CSC_KEY_PASSWORD: ${{ inputs.csc_key_password }}
-        CSC_IDENTITY_AUTO_DISCOVERY: "true"
+        CSC_IDENTITY_AUTO_DISCOVERY: 'true'
         APPLEID: ${{ inputs.apple_id }}
         APPLEIDPASS: ${{ inputs.apple_app_password }}
 
