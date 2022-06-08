@@ -1,10 +1,14 @@
+name: Create GitHub Release
+description: 'Creates a release distro ready for production'
+
 inputs:
   package_directory:
-    description: "path to the directory where package.json file lives"
-    required: true
+    default: .
+    description: 'path to the directory where package.json file lives'
+    required: false
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Get release version
       id: get_release_version

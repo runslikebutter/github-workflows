@@ -1,7 +1,15 @@
+name: Set Up Node
+description: "Download and install the proper version of Node for the current project"
+
+inputs:
+  node_version:
+    description: "Node version to use for the current app"
+    required: true
+
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Set up node
       uses: actions/setup-node@v2
       with:
-        node-version: 14.17.0
+        node-version: ${{ inputs.node_version }}
