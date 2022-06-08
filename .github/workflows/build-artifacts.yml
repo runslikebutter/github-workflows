@@ -94,7 +94,7 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: runslikebutter/github-workflows/actions/build-windows@MET-1900
+        uses: runslikebutter/github-workflows/actions/build-windows@v6
         with:
           artifact_name: ${{ inputs.windows_artifact_name }}
           cache_version: ${{ secrets.CACHE_VERSION }}
@@ -112,7 +112,7 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: runslikebutter/github-workflows/actions/build-linux@MET-1900
+        uses: runslikebutter/github-workflows/actions/build-linux@v6
         with:
           artifact_name: ${{ inputs.linux_artifact_name }}
           cache_version: ${{ secrets.CACHE_VERSION }}
@@ -132,7 +132,7 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
       - name: Build
-        uses: runslikebutter/github-workflows/actions/build-mac@MET-1900
+        uses: runslikebutter/github-workflows/actions/build-mac@v6
         with:
           artifact_name: ${{ inputs.mac_artifact_name }}
           cache_version: ${{ secrets.CACHE_VERSION }}
