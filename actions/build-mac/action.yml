@@ -42,7 +42,7 @@ runs:
   using: 'composite'
   steps:
     - name: Prep and install dependencies
-      uses: runslikebutter/github-workflows/actions/install-dependencies@v6
+      uses: runslikebutter/github-workflows/actions/install-dependencies@v7
       with:
         cache_version: ${{ inputs.cache_version }}
         node_version: ${{ inputs.node_version }}

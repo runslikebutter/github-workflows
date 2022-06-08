@@ -27,13 +27,13 @@ runs:
         ssh-private-key: ${{ inputs.ssh_key }}
 
     - name: Set up node
-      uses: runslikebutter/github-workflows/actions/setup-node@v6
+      uses: runslikebutter/github-workflows/actions/setup-node@v7
       with:
         node_version: ${{ inputs.node_version }}
 
     - name: Cache dependencies
       id: cache
-      uses: runslikebutter/github-workflows/actions/cache@v6
+      uses: runslikebutter/github-workflows/actions/cache@v7
       with:
         cache_version: ${{ inputs.cache_version }}
         project_root_path: ${{ inputs.working_directory }}
