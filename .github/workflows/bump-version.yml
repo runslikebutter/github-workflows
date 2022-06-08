@@ -4,13 +4,18 @@ on:
   workflow_call:
     inputs:
       branch:
-        description: "name of the branch to version bump"
+        default: 'develop'
+        description: 'name of the branch to version bump'
         required: false
-        default: "develop"
+        type: string
+      working_directory:
+        default: 'panel-app'
+        description: 'the directory where `node_modules` will be created'
+        required: false
         type: string
     outputs:
       skipped:
-        description: "whether the version bump was skipped"
+        description: 'whether the version bump was skipped'
         value: ${{ jobs.bump_version.outputs.skipped }}
     secrets:
       GITHUB_BUILD_TOKEN:
@@ -23,22 +28,22 @@ jobs:
     outputs:
       skipped: ${{ steps.bump_version.outputs.skipped }}
     steps:
-    - name: Check out branch
-      uses: actions/checkout@v2
-      with:
-        ref: ${{ inputs.branch }}
-        token: ${{ secrets.GITHUB_BUILD_TOKEN }}
+      - name: Check out branch
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ inputs.branch }}
+          token: ${{ secrets.GITHUB_BUILD_TOKEN }}
 
-    - name: Bump version and push tag
-      id: bump_version
-      uses: TriPSs/conventional-changelog-action@v3
-      with:
-        git-message: "chore(release): {version}"
-        # standard token doesn't work once the branch is a protected branch
-        # github-token: ${{ secrets.github_token }}
-        # use a personal access token from an admin of this repo:
-        github-token: ${{ secrets.GITHUB_BUILD_TOKEN }}
-        output-file: "panel-app/CHANGELOG.md"
-        release-count: 15
-        skip-on-empty: "true"
-        version-file: "panel-app/package.json"
+      - name: Bump version and push tag
+        id: bump_version
+        uses: TriPSs/conventional-changelog-action@v3
+        with:
+          git-message: 'chore(release): {version}'
+          # standard token doesn't work once the branch is a protected branch
+          # github-token: ${{ secrets.github_token }}
+          # use a personal access token from an admin of this repo:
+          github-token: ${{ secrets.GITHUB_BUILD_TOKEN }}
+          output-file: '${{ inputs.working_directory }}/CHANGELOG.md'
+          release-count: 15
+          skip-on-empty: 'true'
+          version-file: '${{ inputs.working_directory }}/package.json'
