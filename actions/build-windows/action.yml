@@ -30,7 +30,7 @@ runs:
   using: 'composite'
   steps:
     - name: Prep and install dependencies
-      uses: runslikebutter/github-workflows/actions/install-dependencies@MET-1900
+      uses: runslikebutter/github-workflows/actions/install-dependencies@v6
       with:
         cache_version: ${{ inputs.cache_version }}
         node_version: ${{ inputs.node_version }}
