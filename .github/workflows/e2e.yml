@@ -14,6 +14,12 @@ jobs:
 
   access-group:
     runs-on: ubuntu-latest
+    outputs:
+      total: ${{ steps.exportResults.outputs.total }}
+      pass: ${{ steps.exportResults.outputs.pass }}
+      fail: ${{ steps.exportResults.outputs.fail }}
+      skip: ${{ steps.exportResults.outputs.skip }}
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -35,6 +41,20 @@ jobs:
         if: steps.first-attempt.outputs.res == 'fail'
         run: npm run test:monarch:headless ${{ github.job }}
 
+      - name: JSON test results to environmental variables
+        uses: antifree/json-to-variables@v1.0.1
+        with:
+          filename: './run-results/results.json'
+          prefix: results
+
+      - name: Export test results
+        id: exportResults
+        run: |
+          echo "::set-output name=total::${{ env.results_numTotalTests }}"
+          echo "::set-output name=pass::${{ env.results_numPassedTests }}"
+          echo "::set-output name=fail::${{ env.results_numFailedTests }}"
+          echo "::set-output name=skip::${{ env.results_numPendingTests }}"
+
       - uses: ./.github/utils/extract-logs
         if: failure()
 
@@ -42,6 +62,12 @@ jobs:
     needs: [access-group]
     if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
+    outputs:
+      total: ${{ steps.exportResults.outputs.total }}
+      pass: ${{ steps.exportResults.outputs.pass }}
+      fail: ${{ steps.exportResults.outputs.fail }}
+      skip: ${{ steps.exportResults.outputs.skip }}
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -58,6 +84,20 @@ jobs:
       - name: ">>> Retry"
         if: steps.first-attempt.outputs.res == 'fail'
         run: npm run test:monarch:headless ${{ github.job }}
+
+      - name: JSON test results to environmental variables
+        uses: antifree/json-to-variables@v1.0.1
+        with:
+          filename: './run-results/results.json'
+          prefix: results
+
+      - name: Export test results
+        id: exportResults
+        run: |
+          echo "::set-output name=total::${{ env.results_numTotalTests }}"
+          echo "::set-output name=pass::${{ env.results_numPassedTests }}"
+          echo "::set-output name=fail::${{ env.results_numFailedTests }}"
+          echo "::set-output name=skip::${{ env.results_numPendingTests }}"
 
       - uses: ./.github/utils/extract-logs
         if: failure()
@@ -66,6 +106,12 @@ jobs:
     needs: [basic-ui]
     if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
+    outputs:
+      total: ${{ steps.exportResults.outputs.total }}
+      pass: ${{ steps.exportResults.outputs.pass }}
+      fail: ${{ steps.exportResults.outputs.fail }}
+      skip: ${{ steps.exportResults.outputs.skip }}
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -82,6 +128,19 @@ jobs:
       - name: ">>> Retry"
         if: steps.first-attempt.outputs.res == 'fail'
         run: npm run test:monarch:headless ${{ github.job }}
+      - name: JSON test results to environmental variables
+        uses: antifree/json-to-variables@v1.0.1
+        with:
+          filename: './run-results/results.json'
+          prefix: results
+
+      - name: Export test results
+        id: exportResults
+        run: |
+          echo "::set-output name=total::${{ env.results_numTotalTests }}"
+          echo "::set-output name=pass::${{ env.results_numPassedTests }}"
+          echo "::set-output name=fail::${{ env.results_numFailedTests }}"
+          echo "::set-output name=skip::${{ env.results_numPendingTests }}"
 
       - uses: ./.github/utils/extract-logs
         if: failure()
@@ -90,6 +149,12 @@ jobs:
     needs: [commercial]
     if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
+    outputs:
+      total: ${{ steps.exportResults.outputs.total }}
+      pass: ${{ steps.exportResults.outputs.pass }}
+      fail: ${{ steps.exportResults.outputs.fail }}
+      skip: ${{ steps.exportResults.outputs.skip }}
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -106,6 +171,20 @@ jobs:
       - name: ">>> Retry"
         if: steps.first-attempt.outputs.res == 'fail'
         run: npm run test:monarch:headless ${{ github.job }}
+
+      - name: JSON test results to environmental variables
+        uses: antifree/json-to-variables@v1.0.1
+        with:
+          filename: './run-results/results.json'
+          prefix: results
+
+      - name: Export test results
+        id: exportResults
+        run: |
+          echo "::set-output name=total::${{ env.results_numTotalTests }}"
+          echo "::set-output name=pass::${{ env.results_numPassedTests }}"
+          echo "::set-output name=fail::${{ env.results_numFailedTests }}"
+          echo "::set-output name=skip::${{ env.results_numPendingTests }}"
 
       - uses: ./.github/utils/extract-logs
         if: failure()
@@ -114,6 +193,12 @@ jobs:
     needs: [delivery-pins]
     if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
+    outputs:
+      total: ${{ steps.exportResults.outputs.total }}
+      pass: ${{ steps.exportResults.outputs.pass }}
+      fail: ${{ steps.exportResults.outputs.fail }}
+      skip: ${{ steps.exportResults.outputs.skip }}
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -130,6 +215,20 @@ jobs:
       - name: ">>> Retry"
         if: steps.first-attempt.outputs.res == 'fail'
         run: npm run test:monarch:headless ${{ github.job }}
+
+      - name: JSON test results to environmental variables
+        uses: antifree/json-to-variables@v1.0.1
+        with:
+          filename: './run-results/results.json'
+          prefix: results
+
+      - name: Export test results
+        id: exportResults
+        run: |
+          echo "::set-output name=total::${{ env.results_numTotalTests }}"
+          echo "::set-output name=pass::${{ env.results_numPassedTests }}"
+          echo "::set-output name=fail::${{ env.results_numFailedTests }}"
+          echo "::set-output name=skip::${{ env.results_numPendingTests }}"
 
       - uses: ./.github/utils/extract-logs
         if: failure()
@@ -138,6 +237,12 @@ jobs:
     needs: [directory]
     if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
+    outputs:
+      total: ${{ steps.exportResults.outputs.total }}
+      pass: ${{ steps.exportResults.outputs.pass }}
+      fail: ${{ steps.exportResults.outputs.fail }}
+      skip: ${{ steps.exportResults.outputs.skip }}
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -154,6 +259,20 @@ jobs:
       - name: ">>> Retry"
         if: steps.first-attempt.outputs.res == 'fail'
         run: npm run test:monarch:headless ${{ github.job }}
+
+      - name: JSON test results to environmental variables
+        uses: antifree/json-to-variables@v1.0.1
+        with:
+          filename: './run-results/results.json'
+          prefix: results
+
+      - name: Export test results
+        id: exportResults
+        run: |
+          echo "::set-output name=total::${{ env.results_numTotalTests }}"
+          echo "::set-output name=pass::${{ env.results_numPassedTests }}"
+          echo "::set-output name=fail::${{ env.results_numFailedTests }}"
+          echo "::set-output name=skip::${{ env.results_numPendingTests }}"
 
       - uses: ./.github/utils/extract-logs
         if: failure()
@@ -162,6 +281,12 @@ jobs:
     needs: [door-pins]
     if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
+    outputs:
+      total: ${{ steps.exportResults.outputs.total }}
+      pass: ${{ steps.exportResults.outputs.pass }}
+      fail: ${{ steps.exportResults.outputs.fail }}
+      skip: ${{ steps.exportResults.outputs.skip }}
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -178,6 +303,20 @@ jobs:
       - name: ">>> Retry"
         if: steps.first-attempt.outputs.res == 'fail'
         run: npm run test:monarch:headless ${{ github.job }}
+
+      - name: JSON test results to environmental variables
+        uses: antifree/json-to-variables@v1.0.1
+        with:
+          filename: './run-results/results.json'
+          prefix: results
+
+      - name: Export test results
+        id: exportResults
+        run: |
+          echo "::set-output name=total::${{ env.results_numTotalTests }}"
+          echo "::set-output name=pass::${{ env.results_numPassedTests }}"
+          echo "::set-output name=fail::${{ env.results_numFailedTests }}"
+          echo "::set-output name=skip::${{ env.results_numPendingTests }}"
 
       - uses: ./.github/utils/extract-logs
         if: failure()
@@ -189,6 +328,12 @@ jobs:
 
   inactive:
     runs-on: ubuntu-latest
+    outputs:
+      total: ${{ steps.exportResults.outputs.total }}
+      pass: ${{ steps.exportResults.outputs.pass }}
+      fail: ${{ steps.exportResults.outputs.fail }}
+      skip: ${{ steps.exportResults.outputs.skip }}
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -205,6 +350,20 @@ jobs:
       - name: ">>> Retry"
         if: steps.first-attempt.outputs.res == 'fail'
         run: npm run test:monarch:headless ${{ github.job }}
+
+      - name: JSON test results to environmental variables
+        uses: antifree/json-to-variables@v1.0.1
+        with:
+          filename: './run-results/results.json'
+          prefix: results
+
+      - name: Export test results
+        id: exportResults
+        run: |
+          echo "::set-output name=total::${{ env.results_numTotalTests }}"
+          echo "::set-output name=pass::${{ env.results_numPassedTests }}"
+          echo "::set-output name=fail::${{ env.results_numFailedTests }}"
+          echo "::set-output name=skip::${{ env.results_numPendingTests }}"
 
       - uses: ./.github/utils/extract-logs
         if: failure()
@@ -213,6 +372,12 @@ jobs:
     needs: [inactive]
     if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
+    outputs:
+      total: ${{ steps.exportResults.outputs.total }}
+      pass: ${{ steps.exportResults.outputs.pass }}
+      fail: ${{ steps.exportResults.outputs.fail }}
+      skip: ${{ steps.exportResults.outputs.skip }}
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -230,6 +395,20 @@ jobs:
         if: steps.first-attempt.outputs.res == 'fail'
         run: npm run test:monarch:headless ${{ github.job }}
 
+      - name: JSON test results to environmental variables
+        uses: antifree/json-to-variables@v1.0.1
+        with:
+          filename: './run-results/results.json'
+          prefix: results
+
+      - name: Export test results
+        id: exportResults
+        run: |
+          echo "::set-output name=total::${{ env.results_numTotalTests }}"
+          echo "::set-output name=pass::${{ env.results_numPassedTests }}"
+          echo "::set-output name=fail::${{ env.results_numFailedTests }}"
+          echo "::set-output name=skip::${{ env.results_numPendingTests }}"
+
       - uses: ./.github/utils/extract-logs
         if: failure()
 
@@ -237,6 +416,12 @@ jobs:
     needs: [package-room]
     if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
+    outputs:
+      total: ${{ steps.exportResults.outputs.total }}
+      pass: ${{ steps.exportResults.outputs.pass }}
+      fail: ${{ steps.exportResults.outputs.fail }}
+      skip: ${{ steps.exportResults.outputs.skip }}
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -258,6 +443,20 @@ jobs:
         if: steps.first-attempt.outputs.res == 'fail'
         run: npm run test:monarch:headless ${{ github.job }}
 
+      - name: JSON test results to environmental variables
+        uses: antifree/json-to-variables@v1.0.1
+        with:
+          filename: './run-results/results.json'
+          prefix: results
+
+      - name: Export test results
+        id: exportResults
+        run: |
+          echo "::set-output name=total::${{ env.results_numTotalTests }}"
+          echo "::set-output name=pass::${{ env.results_numPassedTests }}"
+          echo "::set-output name=fail::${{ env.results_numFailedTests }}"
+          echo "::set-output name=skip::${{ env.results_numPendingTests }}"
+
       - uses: ./.github/utils/extract-logs
         if: failure()
 
@@ -265,6 +464,12 @@ jobs:
     needs: [qr]
     if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
+    outputs:
+      total: ${{ steps.exportResults.outputs.total }}
+      pass: ${{ steps.exportResults.outputs.pass }}
+      fail: ${{ steps.exportResults.outputs.fail }}
+      skip: ${{ steps.exportResults.outputs.skip }}
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -281,6 +486,20 @@ jobs:
       - name: ">>> Retry"
         if: steps.first-attempt.outputs.res == 'fail'
         run: npm run test:monarch:headless ${{ github.job }}
+
+      - name: JSON test results to environmental variables
+        uses: antifree/json-to-variables@v1.0.1
+        with:
+          filename: './run-results/results.json'
+          prefix: results
+
+      - name: Export test results
+        id: exportResults
+        run: |
+          echo "::set-output name=total::${{ env.results_numTotalTests }}"
+          echo "::set-output name=pass::${{ env.results_numPassedTests }}"
+          echo "::set-output name=fail::${{ env.results_numFailedTests }}"
+          echo "::set-output name=skip::${{ env.results_numPendingTests }}"
 
       - uses: ./.github/utils/extract-logs
         if: failure()
@@ -289,6 +508,12 @@ jobs:
     needs: [relays]
     if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
+    outputs:
+      total: ${{ steps.exportResults.outputs.total }}
+      pass: ${{ steps.exportResults.outputs.pass }}
+      fail: ${{ steps.exportResults.outputs.fail }}
+      skip: ${{ steps.exportResults.outputs.skip }}
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -305,6 +530,20 @@ jobs:
       - name: ">>> Retry"
         if: steps.first-attempt.outputs.res == 'fail'
         run: npm run test:monarch:headless ${{ github.job }}
+
+      - name: JSON test results to environmental variables
+        uses: antifree/json-to-variables@v1.0.1
+        with:
+          filename: './run-results/results.json'
+          prefix: results
+
+      - name: Export test results
+        id: exportResults
+        run: |
+          echo "::set-output name=total::${{ env.results_numTotalTests }}"
+          echo "::set-output name=pass::${{ env.results_numPassedTests }}"
+          echo "::set-output name=fail::${{ env.results_numFailedTests }}"
+          echo "::set-output name=skip::${{ env.results_numPendingTests }}"
 
       - uses: ./.github/utils/extract-logs
         if: failure()
@@ -313,6 +552,12 @@ jobs:
     needs: [vk-pins]
     if: success() || failure() # will always run, but allows for cancelling the workflow, which is not the case with always()
     runs-on: ubuntu-latest
+    outputs:
+      total: ${{ steps.exportResults.outputs.total }}
+      pass: ${{ steps.exportResults.outputs.pass }}
+      fail: ${{ steps.exportResults.outputs.fail }}
+      skip: ${{ steps.exportResults.outputs.skip }}
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -330,5 +575,47 @@ jobs:
         if: steps.first-attempt.outputs.res == 'fail'
         run: npm run test:monarch:headless ${{ github.job }}
 
+      - name: JSON test results to environmental variables
+        uses: antifree/json-to-variables@v1.0.1
+        with:
+          filename: './run-results/results.json'
+          prefix: results
+
+      - name: Export test results
+        id: exportResults
+        run: |
+          echo "::set-output name=total::${{ env.results_numTotalTests }}"
+          echo "::set-output name=pass::${{ env.results_numPassedTests }}"
+          echo "::set-output name=fail::${{ env.results_numFailedTests }}"
+          echo "::set-output name=skip::${{ env.results_numPendingTests }}"
+
       - uses: ./.github/utils/extract-logs
         if: failure()
+
+  summary-results:
+    needs: [access-group, basic-ui, commercial, delivery-pins, directory, door-pins, home-page, inactive, package-room, qr, relays, vk-pins, zones]
+    if: success() || failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Summarize all results of test suits
+        run: |
+          echo "TOTAL=${{ needs.access-group.outputs.total }} + ${{ needs.basic-ui.outputs.total }} + ${{ needs.commercial.outputs.total }} + ${{ needs.delivery-pins.outputs.total }} + ${{ needs.directory.outputs.total }} + ${{ needs.door-pins.outputs.total }} + ${{ needs.home-page.outputs.total }} + ${{ needs.inactive.outputs.total }} + ${{ needs.package-room.outputs.total }} + ${{ needs.qr.outputs.total }} + ${{ needs.relays.outputs.total }} + ${{ needs.vk-pins.outputs.total }} + ${{ needs.zones.outputs.total }}" >> $GITHUB_ENV
+          echo "PASS=${{ needs.access-group.outputs.pass }} + ${{ needs.basic-ui.outputs.pass }} + ${{ needs.commercial.outputs.pass }} + ${{ needs.delivery-pins.outputs.pass }} + ${{ needs.directory.outputs.pass }} + ${{ needs.door-pins.outputs.pass }} + ${{ needs.home-page.outputs.pass }} + ${{ needs.inactive.outputs.pass }} + ${{ needs.package-room.outputs.pass }} + ${{ needs.qr.outputs.pass }} + ${{ needs.relays.outputs.pass }} + ${{ needs.vk-pins.outputs.pass }} + ${{ needs.zones.outputs.pass }}" >> $GITHUB_ENV
+          echo "FAIL=${{ needs.access-group.outputs.fail }} + ${{ needs.basic-ui.outputs.fail }} + ${{ needs.commercial.outputs.fail }} + ${{ needs.delivery-pins.outputs.fail }} + ${{ needs.directory.outputs.fail }} + ${{ needs.door-pins.outputs.fail }} + ${{ needs.home-page.outputs.fail }} + ${{ needs.inactive.outputs.fail }} + ${{ needs.package-room.outputs.fail }} + ${{ needs.qr.outputs.fail }} + ${{ needs.relays.outputs.fail }} + ${{ needs.vk-pins.outputs.fail }} + ${{ needs.zones.outputs.fail }}" >> $GITHUB_ENV
+          echo "SKIP=${{ needs.access-group.outputs.skip }} + ${{ needs.basic-ui.outputs.skip }} + ${{ needs.commercial.outputs.skip }} + ${{ needs.delivery-pins.outputs.skip }} + ${{ needs.directory.outputs.skip }} + ${{ needs.door-pins.outputs.skip }} + ${{ needs.home-page.outputs.skip }} + ${{ needs.inactive.outputs.skip }} + ${{ needs.package-room.outputs.skip }} + ${{ needs.qr.outputs.skip }} + ${{ needs.relays.outputs.skip }} + ${{ needs.vk-pins.outputs.skip }} + ${{ needs.zones.outputs.skip }}" >> $GITHUB_ENV
+
+      - uses: schdck/create-env-json@v1
+        id: create-env
+        with:
+          file-name: 'summary-results.json'
+          total: ${{ env.TOTAL }}
+          pass: ${{ env.PASS }}
+          fail: ${{ env.FAIL }}
+          skip: ${{ env.SKIP }}
+
+      - name: Extract and archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: e2e-summary
+          path: ./summary-results*
+          retention-days: 1
