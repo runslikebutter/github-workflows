@@ -622,10 +622,10 @@ jobs:
   summary-results:
     needs: [access-group, basic-ui, commercial, delivery-pins, directory, door-pins, home-page, inactive, package-room, qr, relays, vk-pins, zones]
     if: success() || failure()
-    continue-on-error: true
     runs-on: ubuntu-latest
     steps:
       - name: Summarize all results of test suits
+        continue-on-error: true
         run: |
           echo "TOTAL=$((${{ needs.access-group.outputs.total }} + ${{ needs.basic-ui.outputs.total }} + ${{ needs.commercial.outputs.total }} + ${{ needs.delivery-pins.outputs.total }} + ${{ needs.directory.outputs.total }} + ${{ needs.door-pins.outputs.total }} + ${{ needs.home-page.outputs.total }} + ${{ needs.inactive.outputs.total }} + ${{ needs.package-room.outputs.total }} + ${{ needs.qr.outputs.total }} + ${{ needs.relays.outputs.total }} + ${{ needs.vk-pins.outputs.total }} + ${{ needs.zones.outputs.total }}))" >> $GITHUB_ENV
           echo "PASS=$((${{ needs.access-group.outputs.pass }} + ${{ needs.basic-ui.outputs.pass }} + ${{ needs.commercial.outputs.pass }} + ${{ needs.delivery-pins.outputs.pass }} + ${{ needs.directory.outputs.pass }} + ${{ needs.door-pins.outputs.pass }} + ${{ needs.home-page.outputs.pass }} + ${{ needs.inactive.outputs.pass }} + ${{ needs.package-room.outputs.pass }} + ${{ needs.qr.outputs.pass }} + ${{ needs.relays.outputs.pass }} + ${{ needs.vk-pins.outputs.pass }} + ${{ needs.zones.outputs.pass }}))" >> $GITHUB_ENV
@@ -634,6 +634,7 @@ jobs:
 
       - uses: schdck/create-env-json@v1
         id: create-env
+        continue-on-error: true
         with:
           file-name: 'summary-results.json'
           total: ${{ env.TOTAL }}
@@ -642,6 +643,7 @@ jobs:
           skip: ${{ env.SKIP }}
 
       - name: Extract and archive artifacts
+        continue-on-error: true
         uses: actions/upload-artifact@v2
         with:
           name: e2e-summary
