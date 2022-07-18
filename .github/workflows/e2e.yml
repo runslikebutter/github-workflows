@@ -622,6 +622,7 @@ jobs:
   summary-results:
     needs: [access-group, basic-ui, commercial, delivery-pins, directory, door-pins, home-page, inactive, package-room, qr, relays, vk-pins, zones]
     if: success() || failure()
+    continue-on-error: true
     runs-on: ubuntu-latest
     steps:
       - name: Summarize all results of test suits
